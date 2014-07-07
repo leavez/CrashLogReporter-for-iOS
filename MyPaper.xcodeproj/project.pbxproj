@@ -21,6 +21,8 @@
 		4101120E1962B55000595DBF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410111F01962B55000595DBF /* UIKit.framework */; };
 		410112161962B55000595DBF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 410112141962B55000595DBF /* InfoPlist.strings */; };
 		410112181962B55000595DBF /* MyPaperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 410112171962B55000595DBF /* MyPaperTests.m */; };
+		410112241962B89000595DBF /* RMCrashLogReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 410112231962B89000595DBF /* RMCrashLogReporter.m */; };
+		410112291962EF0D00595DBF /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410112281962EF0D00595DBF /* CrashReporter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		410112131962B55000595DBF /* MyPaperTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyPaperTests-Info.plist"; sourceTree = "<group>"; };
 		410112151962B55000595DBF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		410112171962B55000595DBF /* MyPaperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyPaperTests.m; sourceTree = "<group>"; };
+		410112221962B89000595DBF /* RMCrashLogReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCrashLogReporter.h; sourceTree = "<group>"; };
+		410112231962B89000595DBF /* RMCrashLogReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCrashLogReporter.m; sourceTree = "<group>"; };
+		410112281962EF0D00595DBF /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
+		41F96D3B196AEE9400C79413 /* RMCrashLogMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMCrashLogMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +69,7 @@
 				410111EF1962B55000595DBF /* CoreGraphics.framework in Frameworks */,
 				410111F11962B55000595DBF /* UIKit.framework in Frameworks */,
 				410111ED1962B55000595DBF /* Foundation.framework in Frameworks */,
+				410112291962EF0D00595DBF /* CrashReporter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,8 @@
 		410111F21962B55000595DBF /* MyPaper */ = {
 			isa = PBXGroup;
 			children = (
+				410112281962EF0D00595DBF /* CrashReporter.framework */,
+				410112211962B7A800595DBF /* New Group */,
 				410111FB1962B55000595DBF /* RMAppDelegate.h */,
 				410111FC1962B55000595DBF /* RMAppDelegate.m */,
 				410111FE1962B55000595DBF /* Main.storyboard */,
@@ -150,6 +159,16 @@
 				410112141962B55000595DBF /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		410112211962B7A800595DBF /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				410112221962B89000595DBF /* RMCrashLogReporter.h */,
+				410112231962B89000595DBF /* RMCrashLogReporter.m */,
+				41F96D3B196AEE9400C79413 /* RMCrashLogMacro.h */,
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				410112241962B89000595DBF /* RMCrashLogReporter.m in Sources */,
 				410111F91962B55000595DBF /* main.m in Sources */,
 				410111FD1962B55000595DBF /* RMAppDelegate.m in Sources */,
 				410112031962B55000595DBF /* RMViewController.m in Sources */,
@@ -334,7 +354,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -366,7 +386,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -377,6 +397,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MyPaper",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyPaper/MyPaper-Prefix.pch";
 				INFOPLIST_FILE = "MyPaper/MyPaper-Info.plist";
@@ -390,6 +414,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/MyPaper",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyPaper/MyPaper-Prefix.pch";
 				INFOPLIST_FILE = "MyPaper/MyPaper-Info.plist";
@@ -457,6 +485,7 @@
 				4101121D1962B55000595DBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4101121E1962B55000595DBF /* Build configuration list for PBXNativeTarget "MyPaperTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +494,7 @@
 				410112201962B55000595DBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
