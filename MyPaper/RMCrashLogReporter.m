@@ -47,8 +47,7 @@ static char* extraInfoFilePath;
 + (void)registerServiceWithDelegate:(id<RMCrashLogReporterConfigDataSource>)delegate afterDelay:(NSTimeInterval)delay;
 {
     // wait seconds
-#warning 用多线程
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         
         NSAssert(delegate, @"RMCrashLogReporter delegate shouldn't be nil");
         RMConfig *config = [delegate crashLogReporterConfig];
@@ -126,19 +125,31 @@ static char* extraInfoFilePath;
         
         
         
-        
+    
+#ifdef DEBUG
         /*
          *   4 Check after a little dalay to ensure the crash handler
          *     is not modified by others.
+         *     只在debug版本中执行，为了防止其他组件（如友盟统计分析）覆盖本组件的signal的处理函数。
+         *     如果signal的处理函数被更改，则本组件功能将会失效。这里只作提醒作用，如果被其他组件更改，
+         *     请适量增加初始化时的延时。
+         *
+         *     TODO:这里未检查nsexceptionhander，只检查了signal
          */
         if (config.shouldCheckCrashHandlerNotModifiedByOthers) {
-#warning 用多线程
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                // 检查 sigaciton 和 nsexceptionhander
-                // TODO
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            
+                // 获取signal handler
+                struct sigaction sa_prev;
+                sigaction(SIGABRT, NULL, &sa_prev);
+                struct sigaction sa_plc;
+                [plcrashReporter enableCrashReporter];
+                sigaction(SIGABRT, NULL, &sa_plc);
+                
+                NSAssert(sa_plc.sa_sigaction == sa_prev.sa_sigaction, @"signal的处理函数被更改，请适量增加初始化时的延时");
             });
         }
-        
+#endif
     });
     
 }

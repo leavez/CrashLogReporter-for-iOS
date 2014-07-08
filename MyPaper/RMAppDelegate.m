@@ -7,12 +7,17 @@
 //
 
 #import "RMAppDelegate.h"
+#import "RMCrashLogReporter.h"
+
+@interface RMAppDelegate()<RMCrashLogReporterConfigDataSource>
+@end
 
 @implementation RMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [RMCrashLogReporter registerServiceWithDelegate:self];
     return YES;
 }
 							
@@ -43,4 +48,8 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (RMConfig *)crashLogReporterConfig;
+{
+    return [[RMConfig alloc] init];
+}
 @end

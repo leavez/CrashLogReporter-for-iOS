@@ -40,6 +40,6 @@
 @property (nonatomic, copy) NSString *otherInfo;
 
 @property (nonatomic, assign) BOOL shouldAutoSubmitCrashReport;
-@property (nonatomic, assign) BOOL shouldCheckCrashHandlerNotModifiedByOthers;
+@property (nonatomic, assign) BOOL shouldCheckCrashHandlerNotModifiedByOthers; // only work in debug mode
 
 @end
