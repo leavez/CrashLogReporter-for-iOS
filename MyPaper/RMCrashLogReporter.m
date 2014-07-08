@@ -133,6 +133,7 @@ static char* extraInfoFilePath;
          *     只在debug版本中执行，为了防止其他组件（如友盟统计分析）覆盖本组件的signal的处理函数。
          *     如果signal的处理函数被更改，则本组件功能将会失效。这里只作提醒作用，如果被其他组件更改，
          *     请适量增加初始化时的延时。
+         *     Crashlytics 用的是Mach—exception, 不冲突，两者可以并存。
          *
          *     TODO:这里未检查nsexceptionhander，只检查了signal
          */

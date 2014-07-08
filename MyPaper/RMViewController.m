@@ -7,6 +7,7 @@
 //
 
 #import "RMViewController.h"
+#import "RMSystemInfo.h"
 
 @interface RMViewController ()
 
@@ -29,7 +30,10 @@ char* stringFromUnsignedInt(unsigned value);
 
 
     char *a = stringFromUnsignedInt(123456);
+    
+    disk_info_struct_t A = get_disk_info();
     NSLog(@"%s",a);
+
 }
 
 - (void)didReceiveMemoryWarning
