@@ -25,6 +25,8 @@
 		410112291962EF0D00595DBF /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410112281962EF0D00595DBF /* CrashReporter.framework */; };
 		415A7906196C247B00EB6E62 /* RMSystemInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A7905196C247B00EB6E62 /* RMSystemInfo.c */; };
 		415A7909196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 415A7908196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m */; };
+		415A790C196C3ECC00EB6E62 /* RMFileWriter.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A790A196C3ECC00EB6E62 /* RMFileWriter.c */; };
+		415A790F196D797900EB6E62 /* RMThreadName.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A790E196D797900EB6E62 /* RMThreadName.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,10 @@
 		415A7905196C247B00EB6E62 /* RMSystemInfo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMSystemInfo.c; sourceTree = "<group>"; };
 		415A7907196C3C5600EB6E62 /* RMSystemInfoNonAsyncSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSystemInfoNonAsyncSafe.h; sourceTree = "<group>"; };
 		415A7908196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMSystemInfoNonAsyncSafe.m; sourceTree = "<group>"; };
+		415A790A196C3ECC00EB6E62 /* RMFileWriter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMFileWriter.c; sourceTree = "<group>"; };
+		415A790B196C3ECC00EB6E62 /* RMFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFileWriter.h; sourceTree = "<group>"; };
+		415A790D196D797900EB6E62 /* RMThreadName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMThreadName.h; sourceTree = "<group>"; };
+		415A790E196D797900EB6E62 /* RMThreadName.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMThreadName.c; sourceTree = "<group>"; };
 		41F96D3B196AEE9400C79413 /* RMCrashLogMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMCrashLogMacro.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -177,6 +183,10 @@
 				415A7905196C247B00EB6E62 /* RMSystemInfo.c */,
 				415A7907196C3C5600EB6E62 /* RMSystemInfoNonAsyncSafe.h */,
 				415A7908196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m */,
+				415A790B196C3ECC00EB6E62 /* RMFileWriter.h */,
+				415A790A196C3ECC00EB6E62 /* RMFileWriter.c */,
+				415A790D196D797900EB6E62 /* RMThreadName.h */,
+				415A790E196D797900EB6E62 /* RMThreadName.c */,
 			);
 			name = "New Group";
 			sourceTree = "<group>";
@@ -280,6 +290,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				415A7906196C247B00EB6E62 /* RMSystemInfo.c in Sources */,
+				415A790F196D797900EB6E62 /* RMThreadName.c in Sources */,
+				415A790C196C3ECC00EB6E62 /* RMFileWriter.c in Sources */,
 				410112241962B89000595DBF /* RMCrashLogReporter.m in Sources */,
 				410111F91962B55000595DBF /* main.m in Sources */,
 				410111FD1962B55000595DBF /* RMAppDelegate.m in Sources */,

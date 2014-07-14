@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 renren. All rights reserved.
 //
 
+
 #ifndef RenrenMonitor_RMSystemInfo_NonAsyncSafe_h
 #define RenrenMonitor_RMSystemInfo_NonAsyncSafe_h
 
@@ -25,7 +26,7 @@ typedef struct battery_info_struct {
 /**
  * 获得电池电量信息和电池状态
  *
- * @return battery_info_struct_t 结构体指针
+ * @return battery_info_struct_t 结构体
  */
 battery_info_struct_t getBatteryLevelAndState();
 

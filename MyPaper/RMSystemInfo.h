@@ -38,6 +38,9 @@ typedef struct mem_info_struct {
     float totalMem;
 } mem_info_struct_t;
 
+
+
+
 /**
  * 获得越狱状态
  *
@@ -49,15 +52,11 @@ int is_jailbroken();
 
 /**
  * 获得磁盘信息
- *
- * @return disk_info_struct_t 结构体的指针
  */
 disk_info_struct_t  get_disk_info();
 
 /**
  * 获得RAM信息
- *
- * @return mem_info_struct_t 结构体的指针
  */
 mem_info_struct_t get_RAM_info();
 

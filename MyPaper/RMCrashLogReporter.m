@@ -12,9 +12,16 @@
 #import <CrashReporter/PLCrashReporter.h>
 #import "RMCrashLogMacro.h"
 
+#import "RMFileWriter.h"
+#import "RMSystemInfo.h"
+#import "RMSystemInfoNonAsyncSafe.h"
+#import "RMThreadName.h"
+
 static NSString * const kExtraInfoFileName = @"extraDeviceInfo";
+static NSString * const kThreadInfoFileName = @"threadNamesInfo";
 static NSString * const kRecordedCrashFolderName = @"recorded_crashes";
 static NSString * const kCrashLogExtraInfoPostfix = @"_extraInfo";
+static NSString * const kThreadNamesKey = @"theadNames";
 
 
 /**
@@ -27,6 +34,7 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context);
  * 因为OC是不是async-safe，所以不能在崩溃处理时用SDK的函数生成文件路径，所以先生成。
  */
 static char* extraInfoFilePath;
+static char* threadNameFilePath;
 
 
 
@@ -72,11 +80,12 @@ static char* extraInfoFilePath;
             NSLog(@"[CrashReporter] could not enable PLC:%@",error.localizedDescription);
         }
         
-        // init extra info filepath
+        // init filepath for extra info
         NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-        NSString *path = [cachePath stringByAppendingPathComponent:kExtraInfoFileName];
-        extraInfoFilePath = strdup([path UTF8String]); // copy to heap
-        
+        NSString *infoPath = [cachePath stringByAppendingPathComponent:kExtraInfoFileName];
+        extraInfoFilePath = strdup([infoPath UTF8String]); // copy to heap
+        NSString *threadNamePath = [cachePath stringByAppendingPathComponent:kThreadInfoFileName];
+        threadNameFilePath = strdup([threadNamePath UTF8String]);
 
         
         
@@ -96,9 +105,11 @@ static char* extraInfoFilePath;
         }
         
         // Organize all crash info into RecordedCrash folder
-        // including: 1 move crash log genereated by PLC and the extra info file into the Folder
-        //            2 rename extra info file to extraInfo_******, where ***** is crashlog name.
-        if ([plcrashReporter hasPendingCrashReport]) {
+        // including: 1 move crash log genereated by PLC
+        //            2 and assemble the extra info into one dictionay, save it in the RecordedCrash folder
+        //            2 name extra info dict 'extraInfo_******', where ***** is crashlog name.
+        BOOL crashedLastTime = [plcrashReporter hasPendingCrashReport];
+        if ( crashedLastTime ) {
             NSData *protoBufData = [plcrashReporter loadPendingCrashReportDataAndReturnError:&error];
             if (protoBufData) {
 
@@ -107,9 +118,16 @@ static char* extraInfoFilePath;
                 filenameByTime = [crashlogFolder stringByAppendingPathComponent:filenameByTime];
                 [protoBufData writeToFile:filenameByTime atomically:YES];
                 
-                // move extra info file into that folder
+                // assembel extra info to a dict
+                NSMutableDictionary *infoDict = [self assembleExtraInfoAtPath:infoPath];
+                NSArray *threadNames = [self assembleTheadNamesArrayAtPath:threadNamePath];
+                [infoDict setObject:threadNames forKey:kThreadNamesKey];
+                
+                // write file
                 NSString *extraInfoFileName = [filenameByTime stringByAppendingString:kCrashLogExtraInfoPostfix];
-                [fileManager moveItemAtPath:path toPath:extraInfoFileName error:nil];
+                [infoDict writeToFile:extraInfoFileName atomically:YES];
+                [fileManager removeItemAtPath:infoPath error:nil];
+                [fileManager removeItemAtPath:threadNamePath error:nil];
                 
             }else{
                 NSLog(@"[CrashReporter] could not load PLC crash data:%@",error.localizedDescription);
@@ -118,9 +136,8 @@ static char* extraInfoFilePath;
         
         
         
-        
         /*
-         *   3 Check and send to server
+         *   3 if crashed, send to server
          */
         
         
@@ -160,9 +177,79 @@ static char* extraInfoFilePath;
 
 void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
 {
+    // jailbroken
+    writeUnsignInt(extraInfoFilePath, "jailbreak", is_jailbroken());
     
+    // disk info
+    disk_info_struct_t diskInfo = get_disk_info();
+    writeUnsignInt(extraInfoFilePath, "freeDisk", (unsigned)diskInfo.freeBytes);
+    //    writeUnsignInt(extraInfoFilePath, "totalDisk", diskInfo->totalBytes);
+    
+    // ram info
+    mem_info_struct_t ramInfo = get_RAM_info();
+    writeUnsignInt(extraInfoFilePath,"freeRam",ramInfo.freeMem);
+    writeUnsignInt(extraInfoFilePath,"usedRam",ramInfo.usedMem);
+    
+    // cpu usage
+    writeUnsignInt(extraInfoFilePath,"cpuUsage", cpu_usage());
+    
+    /* get thread names */
+    // get strings
+    thread_name_array_t thread_names = get_thread_names();
+    writeThreadNames(threadNameFilePath, thread_names);
+
+    /*
+     * 由于下面的几个信息获取的函数不是async-safe的，有潜在的可能引发问题，
+     * 并且对于debug用处不大，所以暂时不用了
+     */
+//    // battery info
+//    battery_info_struct_t batteryInfo = getBatteryLevelAndState();
+//    writeUnsignInt(extraInfoFilePath, "batteryLevel", batteryInfo.batteryLevel);
+//    writeUnsignInt(extraInfoFilePath, "batteryState", batteryInfo.batteryState);
+//    
+//    // proximity info
+//    writeUnsignInt(extraInfoFilePath, "proximityState", getProximityState());
 }
 
+#pragma mark - 整理信息到一个dictionary中
+
++ (NSMutableDictionary *)assembleExtraInfoAtPath:(NSString*)pathWithName
+{
+    NSError *error = nil;
+    NSString *fileContent = [[NSString alloc] initWithContentsOfFile:pathWithName encoding:NSUTF8StringEncoding error:&error];
+    if (error) {
+        NSLog(@"[CrashReporter] cound load extra info data %@",error.localizedDescription);
+    }
+    NSArray *allLines = [fileContent componentsSeparatedByString:@"\n"];
+    
+    // extra info
+    NSMutableDictionary *infoDictionary = [NSMutableDictionary dictionary];
+    for (NSString* property in allLines) {
+        NSArray *subStrings = [property componentsSeparatedByString:@":"];
+        if(subStrings.count >= 2){
+            NSString* name = [subStrings firstObject];
+            NSString* value = [subStrings lastObject];
+            if (name && value) {
+                [infoDictionary setObject:value forKey:name];
+            }
+        }
+    }
+    return infoDictionary;
+}
+
++ (NSArray *)assembleTheadNamesArrayAtPath:(NSString*)pathWithName
+{
+    NSError *error = nil;
+    NSString *fileContent = [[NSString alloc] initWithContentsOfFile:pathWithName encoding:NSUTF8StringEncoding error:&error];
+    if (error) {
+        NSLog(@"[CrashReporter] cound load thread name data. %@",error.localizedDescription);
+    }
+    NSArray *allLines = [fileContent componentsSeparatedByString:@"\n"];
+    if (!allLines) {
+        allLines = [NSArray array];
+    }
+    return allLines; // every line is a thead name
+}
 
 
 @end

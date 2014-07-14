@@ -6,7 +6,6 @@
 //  Copyright (c) 2014年 renren. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "RMSystemInfoNonAsyncSafe.h"
 
 

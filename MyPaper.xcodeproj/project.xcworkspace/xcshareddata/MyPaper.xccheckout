@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>215C67D6-B286-4572-97CB-139250B1697B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MyPaper</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>447BD5BF-CCAC-4EFB-BA07-3CF52915B91A</key>
+		<string>https://github.com/leavez/MyPaper.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MyPaper.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>447BD5BF-CCAC-4EFB-BA07-3CF52915B91A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/leavez/MyPaper.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>447BD5BF-CCAC-4EFB-BA07-3CF52915B91A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>447BD5BF-CCAC-4EFB-BA07-3CF52915B91A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MyPaper</string>
+		</dict>
+	</array>
+</dict>
+</plist>
