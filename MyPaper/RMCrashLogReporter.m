@@ -16,12 +16,9 @@
 #import "RMSystemInfo.h"
 #import "RMSystemInfoNonAsyncSafe.h"
 #import "RMThreadName.h"
+#import "RMCrashReportFomatter.h"
 
-static NSString * const kExtraInfoFileName = @"extraDeviceInfo";
-static NSString * const kThreadInfoFileName = @"threadNamesInfo";
-static NSString * const kRecordedCrashFolderName = @"recorded_crashes";
-static NSString * const kCrashLogExtraInfoPostfix = @"_extraInfo";
-static NSString * const kThreadNamesKey = @"theadNames";
+#import "RMAlertView.h"
 
 
 /**
@@ -36,6 +33,8 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context);
 static char* extraInfoFilePath;
 static char* threadNameFilePath;
 
+@interface RMCrashLogReporter()<UIAlertViewDelegate>
+@end
 
 
 @implementation RMCrashLogReporter
@@ -108,13 +107,12 @@ static char* threadNameFilePath;
         // including: 1 move crash log genereated by PLC
         //            2 and assemble the extra info into one dictionay, save it in the RecordedCrash folder
         //            3 name extra info dict 'extraInfo_******', where ***** is crashlog name.
-        BOOL crashedLastTime = [plcrashReporter hasPendingCrashReport];
-        if ( crashedLastTime ) {
+        if ( [plcrashReporter hasPendingCrashReport] ) {
             NSData *protoBufData = [plcrashReporter loadPendingCrashReportDataAndReturnError:&error];
             if (protoBufData) {
 
                 // move plc's crash
-                NSString *filenameByTime = [NSString stringWithFormat: @"%.0f", [NSDate timeIntervalSinceReferenceDate]];
+                NSString *filenameByTime = [NSString stringWithFormat: @"crashlog_%.0f", [NSDate timeIntervalSinceReferenceDate]];
                 filenameByTime = [crashlogFolder stringByAppendingPathComponent:filenameByTime];
                 [protoBufData writeToFile:filenameByTime atomically:YES];
                 [plcrashReporter purgePendingCrashReport];
@@ -141,6 +139,23 @@ static char* threadNameFilePath;
          *   3 if crashed, send to server
          */
         
+        NSArray *fileNames = [fileManager contentsOfDirectoryAtPath:crashlogFolder error:&error];
+        
+        NSMutableArray *validCrashFiles = [NSMutableArray array];
+        for (NSString *filename in fileNames) {
+            if ([filename hasPrefix:@"crashlog"] &&
+                ![filename hasSuffix:kCrashLogExtraInfoPostfix]) {
+                NSString *filePathWithName = [crashlogFolder stringByAppendingPathComponent:filename];
+                [validCrashFiles addObject:filePathWithName];
+            }
+        }
+        
+        // If has pending crash logs
+        //
+        BOOL hasPendingCrash = (validCrashFiles.count > 0);
+        if (hasPendingCrash) {
+            [self askToSend:config];
+        }
         
         
     
@@ -173,9 +188,12 @@ static char* threadNameFilePath;
     
 }
 
+
 #pragma mark - inner methods
 
-
+/*
+ *  PLC的回调函数，在崩溃记录完log之后记录更多的信息
+ */
 void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
 {
     // jailbroken
@@ -212,8 +230,54 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
 //    writeUnsignInt(extraInfoFilePath, "proximityState", getProximityState());
 }
 
+
++ (void)askToSend:(RMConfig*)config
+{
+    VoldBlockType sendingBlock = ^{
+        // TODO
+    };
+
+
+    if ( config.shouldAutoSubmitCrashReport ||
+         [[NSUserDefaults standardUserDefaults] boolForKey:kShouldAlwaysSendingCrashKey] )
+    {
+        // send
+        sendingBlock();
+        
+    }else{
+        // show a UIAlert to let user chose
+        RMAlertView *alert = [[RMAlertView alloc] initWithTitle:kAlertTitle
+                                                        message:kAlertDetailContent
+                                              cancelButtonTitle:@"取消"
+                                               otherButtonTitle:@"发送"
+                                               thirdButtonTitle:@"总是发送"
+        acitonBlock:^(int index)
+        {
+            switch (index) {
+                case RMSendingStrategyAlways:
+                    // set flag
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kShouldAlwaysSendingCrashKey];
+                case RMSendingStrategyOnce:
+                    // send
+                    sendingBlock();
+                    break;
+            }
+        }];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [alert show];
+        });
+    }
+}
+
+
+
 #pragma mark - 整理信息到一个dictionary中
 
+/* 
+ *  通过pathWithName找到记录extraInfo的文件，并转换成一个字典
+ *  @return NSDictionry, key值是记录的属性的名称, value是值
+ */
 + (NSMutableDictionary *)assembleExtraInfoAtPath:(NSString*)pathWithName
 {
     NSError *error = nil;
@@ -238,6 +302,10 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
     return infoDictionary;
 }
 
+/*
+ *  通过pathWithName找到记录线程名的文件，并转换成一个数组
+ *  @return NSArray, 每个元素是线程的名字，string。
+ */
 + (NSArray *)assembleTheadNamesArrayAtPath:(NSString*)pathWithName
 {
     NSError *error = nil;

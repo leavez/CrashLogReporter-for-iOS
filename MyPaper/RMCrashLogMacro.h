@@ -9,6 +9,24 @@
 #ifndef MyPaper_RMCrashLogMacro_h
 #define MyPaper_RMCrashLogMacro_h
 
+static NSString * const kExtraInfoFileName = @"extraDeviceInfo";
+static NSString * const kThreadInfoFileName = @"threadNamesInfo";
+static NSString * const kRecordedCrashFolderName = @"recorded_crashes";
+static NSString * const kCrashLogExtraInfoPostfix = @"_extraInfo";
+static NSString * const kThreadNamesKey = @"theadNames";
+
+static NSString * const kShouldAlwaysSendingCrashKey = @"kShouldAlwaysSendingCrashKey";
+
+static NSString * const kAlertTitle = @"发现上次程序崩溃了";
+static NSString * const kAlertDetailContent = @"发送崩溃数据给我们，以便我们更好地解决问题~";
+
+typedef void (^VoldBlockType)();
+
+typedef enum {
+    RMSendingStrategyAlways = 2,
+    RMSendingStrategyOnce = 1
+}RMSendingStrategy;
+
 #ifdef DEBUG
 #define DEBUG_ASSERT(condition, desc, ...) NSAssert(condition, desc, ...)
 #else
