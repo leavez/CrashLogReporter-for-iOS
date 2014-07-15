@@ -107,7 +107,7 @@ static char* threadNameFilePath;
         // Organize all crash info into RecordedCrash folder
         // including: 1 move crash log genereated by PLC
         //            2 and assemble the extra info into one dictionay, save it in the RecordedCrash folder
-        //            2 name extra info dict 'extraInfo_******', where ***** is crashlog name.
+        //            3 name extra info dict 'extraInfo_******', where ***** is crashlog name.
         BOOL crashedLastTime = [plcrashReporter hasPendingCrashReport];
         if ( crashedLastTime ) {
             NSData *protoBufData = [plcrashReporter loadPendingCrashReportDataAndReturnError:&error];
@@ -117,6 +117,7 @@ static char* threadNameFilePath;
                 NSString *filenameByTime = [NSString stringWithFormat: @"%.0f", [NSDate timeIntervalSinceReferenceDate]];
                 filenameByTime = [crashlogFolder stringByAppendingPathComponent:filenameByTime];
                 [protoBufData writeToFile:filenameByTime atomically:YES];
+                [plcrashReporter purgePendingCrashReport];
                 
                 // assembel extra info to a dict
                 NSMutableDictionary *infoDict = [self assembleExtraInfoAtPath:infoPath];
