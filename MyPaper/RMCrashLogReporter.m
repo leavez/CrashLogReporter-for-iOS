@@ -17,6 +17,7 @@
 #import "RMSystemInfoNonAsyncSafe.h"
 #import "RMThreadName.h"
 #import "RMCrashReportFomatter.h"
+#import "RMCrashNetwork.h"
 
 #import "RMAlertView.h"
 
@@ -56,8 +57,7 @@ static char* threadNameFilePath;
     // wait seconds
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         
-        NSAssert(delegate, @"RMCrashLogReporter delegate shouldn't be nil");
-        RMConfig *config = [delegate crashLogReporterConfig];
+        RMConfig *config = delegate? [delegate crashLogReporterConfig] : [RMConfig new];
         
         /*
          *  1 Register PLC to generate crashlog
@@ -95,13 +95,9 @@ static char* threadNameFilePath;
         // Init folder for store crashlogs
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *crashlogFolder = [cachePath stringByAppendingPathComponent: kRecordedCrashFolderName];
-        if (![fileManager fileExistsAtPath:crashlogFolder]) {
-            NSDictionary *attributes = [NSDictionary dictionaryWithObject:@(0755) forKey:NSFilePosixPermissions];
-            [fileManager createDirectoryAtPath:crashlogFolder withIntermediateDirectories:YES attributes:attributes error:&error];
-            if (error) {
-                NSLog(@"[CrashReporter] could not Create foler for crashes:%@",error.localizedDescription);
-            }
-        }
+        [self createFolerAtPathIfNotExsit:crashlogFolder];
+        NSString *sendingFailedFolder = [crashlogFolder stringByAppendingPathComponent:kSendingFailedLogFolderName];
+        [self createFolerAtPathIfNotExsit:sendingFailedFolder];
         
         // Organize all crash info into RecordedCrash folder
         // including: 1 move crash log genereated by PLC
@@ -137,28 +133,53 @@ static char* threadNameFilePath;
         
         /*
          *   3 if crashed, send to server
+         *     if sending is successed, delete the file.
+         *     if sending fail, move to another folder, which crashes in
+         *     that folder will be sent automatically.
          */
         
-        NSArray *fileNames = [fileManager contentsOfDirectoryAtPath:crashlogFolder error:&error];
-        
-        NSMutableArray *validCrashFiles = [NSMutableArray array];
-        for (NSString *filename in fileNames) {
-            if ([filename hasPrefix:@"crashlog"] &&
-                ![filename hasSuffix:kCrashLogExtraInfoPostfix]) {
-                NSString *filePathWithName = [crashlogFolder stringByAppendingPathComponent:filename];
-                [validCrashFiles addObject:filePathWithName];
-            }
-        }
+
+        void (^sendingBlock)(NSArray *validCrashFiles) = ^(NSArray *validCrashFiles){
+            
+            RMCrashNetwork *servant = [RMCrashNetwork sharedInstance];
+            servant.config = config;
+            servant.crashFilePath = validCrashFiles;
+            servant.completionBlockForEveryCrash = ^(BOOL successed, NSString *path){
+                
+                if (successed) {
+                    // delete file
+                    [fileManager removeItemAtPath:path error:nil];
+                    path = [self getExtraInfoPathFromLogPath:path];
+                    [fileManager removeItemAtPath:path error:nil];
+                }else{
+                    // move to sending failed folder, it will send next time automatically
+                    NSString *fileName = [path lastPathComponent];
+                    NSString *newPath = [sendingFailedFolder stringByAppendingPathComponent:fileName];
+                    [fileManager moveItemAtPath:path toPath:newPath error:nil];
+                    path = [self getExtraInfoPathFromLogPath:path];
+                    newPath = [self getExtraInfoPathFromLogPath:newPath];
+                    [fileManager moveItemAtPath:path toPath:newPath error:nil];
+                }
+            };
+            // sending
+            [servant sendCrashes];
+        };
         
         // If has pending crash logs
-        //
+        NSArray *validCrashFiles = [self getCrashPathesAtFolder:crashlogFolder];
         BOOL hasPendingCrash = (validCrashFiles.count > 0);
         if (hasPendingCrash) {
-            [self askToSend:config];
+            [self askToSend:config sendBlock:^{
+                sendingBlock(validCrashFiles);
+            }];
         }
         
+        // automatically send crash that failed sending last time
+        NSArray* sendingFailedLogPaths = [self getCrashPathesAtFolder:sendingFailedFolder];
+        sendingBlock( sendingFailedLogPaths );
         
-    
+        
+        
 #ifdef DEBUG
         /*
          *   4 Check after a little dalay to ensure the crash handler
@@ -231,18 +252,17 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
 }
 
 
-+ (void)askToSend:(RMConfig*)config
++ (void)askToSend:(RMConfig*)config sendBlock:(VoldBlockType)sendBlock
 {
-    VoldBlockType sendingBlock = ^{
-        // TODO
-    };
-
-
+    if (!sendBlock) {
+        sendBlock = ^{};
+    }
+    
     if ( config.shouldAutoSubmitCrashReport ||
          [[NSUserDefaults standardUserDefaults] boolForKey:kShouldAlwaysSendingCrashKey] )
     {
         // send
-        sendingBlock();
+        sendBlock();
         
     }else{
         // show a UIAlert to let user chose
@@ -259,8 +279,14 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kShouldAlwaysSendingCrashKey];
                 case RMSendingStrategyOnce:
                     // send
-                    sendingBlock();
+                    sendBlock();
                     break;
+#if DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING
+                case RMSendingStrategyCancel:
+                    // delete file
+                    [self deleteCrashesInCrashFolder];
+                    break;
+#endif
             }
         }];
         
@@ -320,6 +346,50 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
     return allLines; // every line is a thead name
 }
 
++ (NSString *)getExtraInfoPathFromLogPath:(NSString *)path
+{
+    return [path stringByAppendingString:kCrashLogExtraInfoPostfix];
+}
+
++ (void)createFolerAtPathIfNotExsit:(NSString *)path
+{
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSError *error = nil;
+        NSDictionary *attributes = [NSDictionary dictionaryWithObject:@(0755) forKey:NSFilePosixPermissions];
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:attributes error:&error];
+        if (error) {
+            NSLog(@"[CrashReporter] could not Create foler for crashes:%@",error.localizedDescription);
+        }
+    }
+}
+
++ (NSArray *)getCrashPathesAtFolder:(NSString*)path
+{
+    NSError *error = nil;
+    NSArray* fileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
+    NSMutableArray *validCrashFiles = [NSMutableArray array];
+    for (NSString *filename in fileNames) {
+        if ([filename hasPrefix:@"crashlog"] &&
+            ![filename hasSuffix:kCrashLogExtraInfoPostfix]) {
+            NSString *filePathWithName = [path stringByAppendingPathComponent:filename];
+            [validCrashFiles addObject:filePathWithName];
+        }
+    }
+    return validCrashFiles;
+}
+
++ (void)deleteCrashesInCrashFolder
+{
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *crashlogFolder = [cachePath stringByAppendingPathComponent: kRecordedCrashFolderName];
+    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:crashlogFolder error:nil];
+    for(NSString *name in filenames){
+        if ([name hasPrefix:@"crashlog"] ){
+            NSString *path = [crashlogFolder stringByAppendingPathComponent:name];
+            [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+        }
+    }
+}
 
 @end
 
@@ -331,9 +401,7 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
     if (self) {
         // default settings
         self.serverURL = kDefaultServerURL;
-        self.bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-        self.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-        self.build = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+        
         self.shouldAutoSubmitCrashReport = NO;
         self.shouldCheckCrashHandlerNotModifiedByOthers = YES;
     }

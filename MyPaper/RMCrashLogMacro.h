@@ -9,9 +9,12 @@
 #ifndef MyPaper_RMCrashLogMacro_h
 #define MyPaper_RMCrashLogMacro_h
 
+#define DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING 0
+
 static NSString * const kExtraInfoFileName = @"extraDeviceInfo";
 static NSString * const kThreadInfoFileName = @"threadNamesInfo";
 static NSString * const kRecordedCrashFolderName = @"recorded_crashes";
+static NSString * const kSendingFailedLogFolderName = @"sending_failed_logs";
 static NSString * const kCrashLogExtraInfoPostfix = @"_extraInfo";
 static NSString * const kThreadNamesKey = @"theadNames";
 
@@ -24,8 +27,12 @@ typedef void (^VoldBlockType)();
 
 typedef enum {
     RMSendingStrategyAlways = 2,
-    RMSendingStrategyOnce = 1
+    RMSendingStrategyOnce = 1,
+    RMSendingStrategyCancel = 0
 }RMSendingStrategy;
+
+#define NON_NIL_STRING(A)   ( (A)? (A):(@"") )
+#define PREFER_FORMER( A , B )    ( ((A).length > 0) ? (A): (B))
 
 #ifdef DEBUG
 #define DEBUG_ASSERT(condition, desc, ...) NSAssert(condition, desc, ...)

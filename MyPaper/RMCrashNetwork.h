@@ -12,9 +12,10 @@
 @interface RMCrashNetwork : NSObject
 @property (nonatomic,strong) NSArray *crashFilePath;
 @property (nonatomic,strong) RMConfig *config;
+@property (nonatomic,copy) void (^completionBlockForEveryCrash)(BOOL successed, NSString *path);
 
-+ (instancetype)instanceWithCrashlogFilePathes:(NSArray*)crashPathes config:(RMConfig*)config;
++ (instancetype)sharedInstance;
 
-- (BOOL)sendCrashes;
+- (void)sendCrashes;
 
 @end
