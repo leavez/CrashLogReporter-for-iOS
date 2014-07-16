@@ -30,6 +30,8 @@
 		415A790F196D797900EB6E62 /* RMThreadName.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A790E196D797900EB6E62 /* RMThreadName.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		41B8DFA119752BEB00EDB3C2 /* RMCrashNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8DFA019752BEB00EDB3C2 /* RMCrashNetwork.m */; };
 		41B8DFA41975636F00EDB3C2 /* RMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8DFA31975636F00EDB3C2 /* RMAlertView.m */; };
+		BD490DBC1976F08900871300 /* RMFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD490DBB1976F08900871300 /* RMFolder.m */; };
+		BD490DBF1976F26E00871300 /* RMCrashlogFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD490DBE1976F26E00871300 /* RMCrashlogFolder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,10 @@
 		41B8DFA21975636F00EDB3C2 /* RMAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAlertView.h; sourceTree = "<group>"; };
 		41B8DFA31975636F00EDB3C2 /* RMAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAlertView.m; sourceTree = "<group>"; };
 		41F96D3B196AEE9400C79413 /* RMCrashLogMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMCrashLogMacro.h; sourceTree = "<group>"; };
+		BD490DBA1976F08900871300 /* RMFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFolder.h; sourceTree = "<group>"; };
+		BD490DBB1976F08900871300 /* RMFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMFolder.m; sourceTree = "<group>"; };
+		BD490DBD1976F26E00871300 /* RMCrashlogFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCrashlogFolder.h; sourceTree = "<group>"; };
+		BD490DBE1976F26E00871300 /* RMCrashlogFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCrashlogFolder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +191,7 @@
 		410112211962B7A800595DBF /* New Group */ = {
 			isa = PBXGroup;
 			children = (
+				BD490DB91976F07700871300 /* folder */,
 				410112221962B89000595DBF /* RMCrashLogReporter.h */,
 				410112231962B89000595DBF /* RMCrashLogReporter.m */,
 				41B8DFA21975636F00EDB3C2 /* RMAlertView.h */,
@@ -204,6 +211,17 @@
 				415A790E196D797900EB6E62 /* RMThreadName.c */,
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		BD490DB91976F07700871300 /* folder */ = {
+			isa = PBXGroup;
+			children = (
+				BD490DBA1976F08900871300 /* RMFolder.h */,
+				BD490DBB1976F08900871300 /* RMFolder.m */,
+				BD490DBD1976F26E00871300 /* RMCrashlogFolder.h */,
+				BD490DBE1976F26E00871300 /* RMCrashlogFolder.m */,
+			);
+			name = folder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,9 +323,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				415A7906196C247B00EB6E62 /* RMSystemInfo.c in Sources */,
+				BD490DBF1976F26E00871300 /* RMCrashlogFolder.m in Sources */,
 				415A790F196D797900EB6E62 /* RMThreadName.c in Sources */,
 				41B8DFA41975636F00EDB3C2 /* RMAlertView.m in Sources */,
 				415A790C196C3ECC00EB6E62 /* RMFileWriter.c in Sources */,
+				BD490DBC1976F08900871300 /* RMFolder.m in Sources */,
 				413AFE1C1974E21A00169DE4 /* RMCrashReportFomatter.m in Sources */,
 				410112241962B89000595DBF /* RMCrashLogReporter.m in Sources */,
 				410111F91962B55000595DBF /* main.m in Sources */,
