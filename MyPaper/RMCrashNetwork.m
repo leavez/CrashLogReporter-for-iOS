@@ -99,7 +99,7 @@
     NSError *error = nil;
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     NSUInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-    if (statusCode >= 200 && statusCode < 400) {
+    if ((statusCode >= 200 && statusCode < 400) || !responseData) {
         return NO;
     }else{
         NSDictionary *parsedJson = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
@@ -108,7 +108,7 @@
             return YES;
         }else{
             NSString *errorMsg = parsedJson[@"error_msg"];
-            NSLog(@"[crash log] sending Failed: %@",errorMsg);
+            RMLog(@"sending Failed: %@", errorMsg);
             return NO;
         }
     }

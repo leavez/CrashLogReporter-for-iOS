@@ -7,6 +7,7 @@
 //
 
 #import "RMCrashReportFomatter.h"
+#import "RMCrashLogMacro.h"
 #import <CrashReporter/PLCrashReport.h>
 #import <CrashReporter/PLCrashReportTextFormatter.h>
 
@@ -18,7 +19,7 @@
     PLCrashReport *report = [[PLCrashReport alloc] initWithData:data error:&error];
 
     if (error) {
-        NSLog(@"[CrashReporter] cannot create report form protobuf data : %@", error.localizedDescription);
+        RMErrorLog(@"cannot create report form protobuf data", error);
         return nil;
     }
 

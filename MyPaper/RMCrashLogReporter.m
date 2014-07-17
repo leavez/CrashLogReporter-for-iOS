@@ -77,7 +77,7 @@ static char* threadNameFilePath;
         NSError *error = nil;
         BOOL success = [plcrashReporter enableCrashReporterAndReturnError:&error];
         if (!success) {
-            NSLog(@"[CrashReporter] could not enable PLC:%@",error.localizedDescription);
+            RMErrorLog(@"could not enable PLC", error);
         }
         
         // init filepath for extra info
@@ -127,7 +127,7 @@ static char* threadNameFilePath;
                 [plcrashReporter purgePendingCrashReport];
                 
             }else{
-                NSLog(@"[CrashReporter] could not load PLC crash data:%@",error.localizedDescription);
+                RMErrorLog(@"could not load PLC crash data", error);
             }
         }
         
@@ -152,11 +152,11 @@ static char* threadNameFilePath;
                 if (successed) {
                     // delete file
                     [folder removeCrashNamed:name];
-                    NSLog(@"[crash log] sent a crash log successfully");
+                    RMLog(@"sent a crash log successfully");
                 }else{
                     // move to sending failed folder, it will send next time automatically
                     [folder moveCrashNamed:name toFolder:sendingFaildedFolder];
-                    NSLog(@"[crash log] sending failed once");
+                    RMLog(@"[crash log] sending failed once");
                 }
             };
             // sending
@@ -199,7 +199,7 @@ static char* threadNameFilePath;
                 [plcrashReporter enableCrashReporter];
                 sigaction(SIGABRT, NULL, &sa_plc);
                 
-                NSAssert(sa_plc.sa_sigaction == sa_prev.sa_sigaction, @"signal的处理函数被更改，请适量增加初始化时的延时");
+                DEBUG_ASSERT(sa_plc.sa_sigaction == sa_prev.sa_sigaction, @"signal的处理函数被更改，请适量增加初始化时的延时");
             });
         }
 #endif
@@ -307,7 +307,7 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
     NSError *error = nil;
     NSString *fileContent = [[NSString alloc] initWithContentsOfFile:pathWithName encoding:NSUTF8StringEncoding error:&error];
     if (error) {
-        NSLog(@"[CrashReporter] cound load extra info data %@",error.localizedDescription);
+        RMErrorLog(@"cound load extra info data", error);
     }
     NSArray *allLines = [fileContent componentsSeparatedByString:@"\n"];
     
@@ -335,7 +335,7 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
     NSError *error = nil;
     NSString *fileContent = [[NSString alloc] initWithContentsOfFile:pathWithName encoding:NSUTF8StringEncoding error:&error];
     if (error) {
-        NSLog(@"[CrashReporter] cound load thread name data. %@",error.localizedDescription);
+        RMErrorLog(@"cound load thread name data", error);
     }
     NSArray *allLines = [fileContent componentsSeparatedByString:@"\n"];
     if (!allLines) {

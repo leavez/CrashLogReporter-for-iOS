@@ -7,6 +7,8 @@
 //
 
 #import "RMFolder.h"
+#import "RMCrashLogMacro.h"
+
 @interface RMFolder()
 @property (nonatomic,strong) NSFileManager *fileManager;
 @end
@@ -29,7 +31,7 @@
     NSError *error = nil;
     NSArray* fileNames = [self.fileManager contentsOfDirectoryAtPath:self.path error:&error];
     if (error) {
-        NSLog(@"[CrashReporter] could not load names in foler [%@]:%@", self.path, error.localizedDescription);
+        RMLog(@"could not load names in foler [%@]:%@", self.path, error.localizedDescription);
     }
     return fileNames;
 }
@@ -56,7 +58,7 @@
     NSString *pathWithFileName = [self.path stringByAppendingPathComponent:name];
     NSData *data = [[NSData alloc] initWithContentsOfFile:pathWithFileName options:NSDataReadingUncached error:&error];
     if (error) {
-        NSLog(@"[CrashReporter] could not load Datafile [%@]:%@", name, error.localizedDescription);
+        RMLog(@"could not load Datafile [%@]:%@", name, error.localizedDescription);
     }
     return data;
 }
@@ -66,7 +68,7 @@
     NSString *pathWithFileName = [self.path stringByAppendingPathComponent:name];
     [self.fileManager removeItemAtPath:pathWithFileName error:&error];
     if (error) {
-        NSLog(@"[CrashReporter] could not delete file [%@]:%@", name, error.localizedDescription);
+        RMLog(@"could not delete file [%@]:%@", name, error.localizedDescription);
     }
 }
 - (void)moveFileNamed:(NSString *)name toFolder:(RMFolder *)folder;
@@ -79,7 +81,7 @@
     NSString *newPathWithFileName = [folder.path stringByAppendingPathComponent:name];
     [self.fileManager moveItemAtPath:pathWithFileName toPath:newPathWithFileName error:&error];
     if (error) {
-        NSLog(@"[CrashReporter] could not move file [%@]:%@", name, error.localizedDescription);
+        RMLog(@"could not move file [%@]:%@", name, error.localizedDescription);
     }
 }
 
@@ -90,7 +92,7 @@
         NSDictionary *attributes = [NSDictionary dictionaryWithObject:@(0755) forKey:NSFilePosixPermissions];
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:attributes error:&error];
         if (error) {
-            NSLog(@"[CrashReporter] could not Create foler [%@]:%@", self.path, error.localizedDescription);
+            RMLog(@"could not Create foler [%@]:%@", self.path, error.localizedDescription);
             return NO;
         }else{
             return YES;

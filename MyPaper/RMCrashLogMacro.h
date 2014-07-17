@@ -37,10 +37,21 @@ typedef enum {
 #define NON_NIL_STRING(A)   ( (A)? (A):(@"") )
 #define PREFER_FORMER( A , B )    ( ((A).length > 0) ? (A): (B))
 
+#define RMLog( format, ... )\
+if (1) {\
+    NSLog(@"[ RMCrashReporter ] ");\
+    NSLog(format,##__VA_ARGS__ );\
+}
+#define RMErrorLog( contentString, errorObject )\
+if (1) {\
+    NSString *content = [NSString stringWithFormat:@"[ RMCrashReporter ] %@: %@", (contentString), ((errorObject).localizedDescription)];\
+    NSLog(@"%@",content);\
+}
+
 #ifdef DEBUG
-#define DEBUG_ASSERT(condition, desc, ...) NSAssert(condition, desc, ...)
+#define DEBUG_ASSERT(condition, desc, ...) NSAssert(condition, desc, ##__VA_ARGS__)
 #else
-#define DEBUG_ASSERT(condition, desc, ...) NSLog(desc)
+#define DEBUG_ASSERT(condition, desc, ...) RMLog(desc)
 #endif
 
 
