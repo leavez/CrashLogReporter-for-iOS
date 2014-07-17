@@ -23,6 +23,7 @@
 		410112181962B55000595DBF /* MyPaperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 410112171962B55000595DBF /* MyPaperTests.m */; };
 		410112241962B89000595DBF /* RMCrashLogReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 410112231962B89000595DBF /* RMCrashLogReporter.m */; };
 		410112291962EF0D00595DBF /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410112281962EF0D00595DBF /* CrashReporter.framework */; };
+		4130204C1977D45E00BA81F7 /* RMReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4130204B1977D45E00BA81F7 /* RMReachability.m */; };
 		413AFE1C1974E21A00169DE4 /* RMCrashReportFomatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 413AFE1B1974E21A00169DE4 /* RMCrashReportFomatter.m */; };
 		415A7906196C247B00EB6E62 /* RMSystemInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A7905196C247B00EB6E62 /* RMSystemInfo.c */; };
 		415A7909196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 415A7908196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m */; };
@@ -67,6 +68,8 @@
 		410112221962B89000595DBF /* RMCrashLogReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCrashLogReporter.h; sourceTree = "<group>"; };
 		410112231962B89000595DBF /* RMCrashLogReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCrashLogReporter.m; sourceTree = "<group>"; };
 		410112281962EF0D00595DBF /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CrashReporter.framework; sourceTree = "<group>"; };
+		4130204A1977D45E00BA81F7 /* RMReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMReachability.h; sourceTree = "<group>"; };
+		4130204B1977D45E00BA81F7 /* RMReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMReachability.m; sourceTree = "<group>"; };
 		413AFE1A1974E21A00169DE4 /* RMCrashReportFomatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCrashReportFomatter.h; sourceTree = "<group>"; };
 		413AFE1B1974E21A00169DE4 /* RMCrashReportFomatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCrashReportFomatter.m; sourceTree = "<group>"; };
 		415A7904196C247B00EB6E62 /* RMSystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMSystemInfo.h; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 				41B8DFA019752BEB00EDB3C2 /* RMCrashNetwork.m */,
 				41B8DFA21975636F00EDB3C2 /* RMAlertView.h */,
 				41B8DFA31975636F00EDB3C2 /* RMAlertView.m */,
+				4130204A1977D45E00BA81F7 /* RMReachability.h */,
+				4130204B1977D45E00BA81F7 /* RMReachability.m */,
 			);
 			name = "support class";
 			sourceTree = "<group>";
@@ -341,6 +346,7 @@
 				415A7906196C247B00EB6E62 /* RMSystemInfo.c in Sources */,
 				BD490DBF1976F26E00871300 /* RMCrashlogFolder.m in Sources */,
 				415A790F196D797900EB6E62 /* RMThreadName.c in Sources */,
+				4130204C1977D45E00BA81F7 /* RMReachability.m in Sources */,
 				41B8DFA41975636F00EDB3C2 /* RMAlertView.m in Sources */,
 				415A790C196C3ECC00EB6E62 /* RMFileWriter.c in Sources */,
 				BD490DBC1976F08900871300 /* RMFolder.m in Sources */,

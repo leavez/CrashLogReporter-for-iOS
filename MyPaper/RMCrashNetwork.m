@@ -97,14 +97,20 @@
     
     NSURLResponse *response = nil;
     NSError *error = nil;
+    RMLog(@"begin sending");
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     NSUInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-    if ((statusCode >= 200 && statusCode < 400) || !responseData) {
+    if (error) {
+        RMErrorLog(@"network request failed", error);
         return NO;
-    }else{
+    }
+    if ( (statusCode < 200 && statusCode >= 400) || responseData.length <= 0 ) {
+        // if statusCode is error or no response data
+        return NO;
+    }else {
         NSDictionary *parsedJson = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
-        int errorCode = [parsedJson[@"error_code"] integerValue];
-        if (errorCode == 0) {
+        NSNumber *errorCode = parsedJson[@"error_code"];
+        if (errorCode && [errorCode intValue] == 0) {
             return YES;
         }else{
             NSString *errorMsg = parsedJson[@"error_msg"];
