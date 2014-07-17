@@ -61,7 +61,8 @@
  *  Strategy
  */
 
-// if YES， 只有在wifi的情况下，才会提示是否发送log。自动发送上次发送失败的log也要等待wifi情况。 default value NO
+// if YES， 只有在wifi的情况下，才会提示是否发送log。自动发送上次发送失败的log也要等待wifi情况。
+// if NO, 会把文件存在另一文件夹里，等待有新crash的时候一起发送。default value NO
 @property (nonatomic, assign) BOOL onlySendInWifi;
 @property (nonatomic, assign) BOOL shouldAutoSubmitCrashReport;
 @property (nonatomic, assign) BOOL shouldCheckCrashHandlerNotModifiedByOthers; // only work in debug mode
