@@ -21,7 +21,7 @@
 
 #import "RMAlertView.h"
 #import "RMCrashlogFolder.h"
-
+#import "RMReachability.h"
 
 /**
  * PLC的回调，记录一些其他的信息，比如磁盘空间，是否越狱。
@@ -156,25 +156,31 @@ static char* threadNameFilePath;
                 }else{
                     // move to sending failed folder, it will send next time automatically
                     [folder moveCrashNamed:name toFolder:sendingFaildedFolder];
-                    RMLog(@"[crash log] sending failed once");
+                    RMLog(@"sending failed once");
                 }
             };
             // sending
             [servant sendCrashes];  // Synchronous method run in background thread
         };
         
-        // If has pending crash logs
-        NSArray *validCrashFiles = [crashlogFolder crashNamesInFolder];
-        BOOL hasPendingCrash = (validCrashFiles.count > 0);
-        if (hasPendingCrash) {
-            [self askToSend:config sendBlock:^{
-                sendingBlock(crashlogFolder, validCrashFiles);
-            }];
-        }
+        BOOL shouldSendLogs = (config.onlySendInWifi && [RMReachability isConnectedViaWifi]) \
+                               || (!config.onlySendInWifi );
+
+        if (shouldSendLogs) {
         
-        // automatically send crash that failed sending last time
-        NSArray* sendingFailedLogNames = [sendingFaildedFolder crashNamesInFolder];
-        sendingBlock( sendingFaildedFolder, sendingFailedLogNames );
+            // If has pending crash logs
+            NSArray *validCrashFiles = [crashlogFolder crashNamesInFolder];
+            BOOL hasPendingCrash = (validCrashFiles.count > 0);
+            if (hasPendingCrash ) {
+                [self askToSend:config sendBlock:^{
+                    sendingBlock(crashlogFolder, validCrashFiles);
+                }];
+            }
+            
+            // automatically send crash that failed sending last time
+            NSArray* sendingFailedLogNames = [sendingFaildedFolder crashNamesInFolder];
+            sendingBlock( sendingFaildedFolder, sendingFailedLogNames );
+        }
         
         
         
@@ -356,6 +362,7 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
         // default settings
         self.serverURL = kDefaultServerURL;
         
+        self.onlySendInWifi = NO;
         self.shouldAutoSubmitCrashReport = NO;
         self.shouldCheckCrashHandlerNotModifiedByOthers = YES;
     }
