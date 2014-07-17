@@ -193,11 +193,12 @@ static char* threadNameFilePath;
                     }else{
                         // Cancel
                         for (NSString *name in pendingCrashes) {
-#if DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING
-                            [crashlogFolder removeCrashNamed:name];
-#else
-                            [crashlogFolder moveCrashNamed:name toFolder:canceledLogFolder];
-#endif
+                            // if set delete crash when press cancel
+                            if (config.shouldDeleteCrashWhenPressCancel) {
+                                [crashlogFolder removeCrashNamed:name];
+                            }else{
+                                [crashlogFolder moveCrashNamed:name toFolder:canceledLogFolder];
+                            }
                         }
                     }
                     // Send action!!

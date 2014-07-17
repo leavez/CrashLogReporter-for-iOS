@@ -64,6 +64,11 @@
 // if YES， 只有在wifi的情况下，才会提示是否发送log。自动发送上次发送失败的log也要等待wifi情况。
 // if NO, 会把文件存在另一文件夹里，等待有新crash的时候一起发送。default value NO
 @property (nonatomic, assign) BOOL onlySendInWifi;
+
+// 在用户在提示发送时选择cancel，是否删除crash文件，如果NO，会吧crash存在另一个文件夹里
+// 等待在另一个新的crash产生时一起发送
+// default value is NO
+@property (nonatomic, assign) BOOL shouldDeleteCrashWhenPressCancel;
 @property (nonatomic, assign) BOOL shouldAutoSubmitCrashReport;
 @property (nonatomic, assign) BOOL shouldCheckCrashHandlerNotModifiedByOthers; // only work in debug mode
 
