@@ -32,6 +32,7 @@ ssize_t writeByte (const char* pathWithFilename ,const char* propertyName, const
             return -1;
         }
     }
+    close(fd);
     return writtenBytes;
 }
 
@@ -53,6 +54,7 @@ ssize_t writeThreadNames (const char* pathWithFilename, thread_name_array_t name
             return -1;
         }
     }
+    close(fd);
     return writtenBytes;
 }
 
