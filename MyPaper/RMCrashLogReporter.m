@@ -141,12 +141,12 @@ static char* threadNameFilePath;
          */
         
 
-        void (^sendingBlock)(RMCrashlogFolder *folder, NSArray *validCrashFiles) = ^(RMCrashlogFolder *folder, NSArray *validCrashFiles){
+        void (^sendingBlock)(RMCrashlogFolder *folder) = ^(RMCrashlogFolder *folder){
             
             RMCrashNetwork *servant = [[RMCrashNetwork alloc] init];
             servant.config = config;
             servant.folder = folder;
-            servant.crashNames = validCrashFiles;
+            servant.crashNames = [folder crashNamesInFolder];
             servant.completionBlockForEveryCrash = ^(BOOL successed, NSString *name){
                 
                 if (successed) {
@@ -154,35 +154,51 @@ static char* threadNameFilePath;
                     [folder removeCrashNamed:name];
                     RMLog(@"sent a crash log successfully");
                 }else{
-                    // move to sending failed folder, it will send next time automatically
-                    [folder moveCrashNamed:name toFolder:sendingFaildedFolder];
                     RMLog(@"sending failed once");
                 }
             };
             // sending
             [servant sendCrashes];  // Synchronous method run in background thread
         };
-        
+
         BOOL shouldSendLogs = (config.onlySendInWifi && [RMReachability isConnectedViaWifi]) \
                                || (!config.onlySendInWifi );
 
-        if (shouldSendLogs) {
+        if (shouldSendLogs) { // if NO , do nothing
         
             // If has pending crash logs
-            NSArray *validCrashFiles = [crashlogFolder crashNamesInFolder];
-            BOOL hasPendingCrash = (validCrashFiles.count > 0);
-            if (hasPendingCrash ) {
-                [self askToSend:config sendBlock:^{
-                    sendingBlock(crashlogFolder, validCrashFiles);
-                }];
-            }
+            NSArray *pendingCrashes = [crashlogFolder crashNamesInFolder];
+            BOOL hasPendingCrash = (pendingCrashes.count > 0);
             
-            // automatically send crash that failed sending last time
-            NSArray* sendingFailedLogNames = [sendingFaildedFolder crashNamesInFolder];
-            sendingBlock( sendingFaildedFolder, sendingFailedLogNames );
+            if ( hasPendingCrash ) {
+                [self askToSend:config resultBlock:^(RMChoseResult result) {
+                    
+                    if (result == RMChoseResultYes) {
+                        // Want to send
+                        // move pending crashes to sending failed folder
+                        // if failed it will send automatically next time.
+                        for (NSString *name in pendingCrashes) {
+                            [crashlogFolder moveCrashNamed:name toFolder:sendingFaildedFolder];
+                        }
+                    }else{
+                        // Cancel
+                        for (NSString *name in pendingCrashes) {
+                            [crashlogFolder removeCrashNamed:name];
+                        }
+                    }
+                    // Send action!!
+                    // send all crash in sending failed folder, including pending
+                    // crash and sentFailedCrash last time
+                    sendingBlock( sendingFaildedFolder );
+                }];
+            }else{
+                // if no pending crash, directly send the crash in sendingFailedFolder
+                sendingBlock( sendingFaildedFolder );
+            }
         }
         
-        
+#if DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING
+#endif
         
 #ifdef DEBUG
         /*
@@ -256,17 +272,15 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
 }
 
 
-+ (void)askToSend:(RMConfig*)config sendBlock:(VoldBlockType)sendBlock
++ (void)askToSend:(RMConfig*)config resultBlock:(void (^)(RMChoseResult result))resultBlock
 {
-    if (!sendBlock) {
-        sendBlock = ^{};
-    }
-    
     if ( config.shouldAutoSubmitCrashReport ||
          [[NSUserDefaults standardUserDefaults] boolForKey:kShouldAlwaysSendingCrashKey] )
     {
-        // send
-        sendBlock();
+        if (resultBlock) {
+            resultBlock(RMChoseResultYes);
+        }
+        return;
         
     }else{
         // show a UIAlert to let user chose
@@ -283,14 +297,12 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kShouldAlwaysSendingCrashKey];
                 case RMSendingStrategyOnce:
                     // send
-                    sendBlock();
+                    resultBlock( RMChoseResultYes );
                     break;
-#if DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING
                 case RMSendingStrategyCancel:
-                    // delete file
-                    [self deleteCrashesInCrashFolder];
+                    // cancel
+                    resultBlock( RMChoseResultCancel);
                     break;
-#endif
             }
         }];
         

@@ -9,7 +9,7 @@
 #ifndef MyPaper_RMCrashLogMacro_h
 #define MyPaper_RMCrashLogMacro_h
 
-#define DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING 0
+#define DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING 1
 
 static NSString * const kExtraInfoFileName = @"extraDeviceInfo";
 static NSString * const kThreadInfoFileName = @"threadNamesInfo";
@@ -33,6 +33,11 @@ typedef enum {
     RMSendingStrategyOnce = 1,
     RMSendingStrategyCancel = 0
 }RMSendingStrategy;
+
+typedef enum {
+    RMChoseResultYes,
+    RMChoseResultCancel
+}RMChoseResult;
 
 #define NON_NIL_STRING(A)   ( (A)? (A):(@"") )
 #define PREFER_FORMER( A , B )    ( ((A).length > 0) ? (A): (B))
