@@ -94,9 +94,16 @@ static char* threadNameFilePath;
          */
         
         // Init folder for store crashlogs
+        // the main folder for crash logs
         NSString *crashlogFolderPath = [cachePath stringByAppendingPathComponent: kRecordedCrashFolderName];
         RMCrashlogFolder *crashlogFolder = [[RMCrashlogFolder alloc] initWithPath:crashlogFolderPath];
+        
+        // this folder is used for store log that sent failed
         RMCrashlogFolder *sendingFaildedFolder = [crashlogFolder createSubfolder:kSendingFailedLogFolderName];
+        
+        // this folder is used when user press cancel button, move crash into this folder,
+        // waiting for next time have new crash, then send it with them together.
+        RMCrashlogFolder *canceledLogFolder = [crashlogFolder createSubfolder:kCanceledLogFolderName];
         
         // Organize all crash info into RecordedCrash folder
         // including: 1 move crash log genereated by PLC
@@ -180,10 +187,17 @@ static char* threadNameFilePath;
                         for (NSString *name in pendingCrashes) {
                             [crashlogFolder moveCrashNamed:name toFolder:sendingFaildedFolder];
                         }
+                        for (NSString *name in [canceledLogFolder crashNamesInFolder]){
+                            [canceledLogFolder moveCrashNamed:name toFolder:sendingFaildedFolder];
+                        }
                     }else{
                         // Cancel
                         for (NSString *name in pendingCrashes) {
+#if DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING
                             [crashlogFolder removeCrashNamed:name];
+#else
+                            [crashlogFolder moveCrashNamed:name toFolder:canceledLogFolder];
+#endif
                         }
                     }
                     // Send action!!
@@ -197,8 +211,6 @@ static char* threadNameFilePath;
             }
         }
         
-#if DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING
-#endif
         
 #ifdef DEBUG
         /*
@@ -277,6 +289,7 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
     if ( config.shouldAutoSubmitCrashReport ||
          [[NSUserDefaults standardUserDefaults] boolForKey:kShouldAlwaysSendingCrashKey] )
     {
+        RMLog(@"automaticaly sending crash");
         if (resultBlock) {
             resultBlock(RMChoseResultYes);
         }
@@ -295,6 +308,7 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
                 case RMSendingStrategyAlways:
                     // set flag
                     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kShouldAlwaysSendingCrashKey];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
                 case RMSendingStrategyOnce:
                     // send
                     resultBlock( RMChoseResultYes );

@@ -9,12 +9,13 @@
 #ifndef MyPaper_RMCrashLogMacro_h
 #define MyPaper_RMCrashLogMacro_h
 
-#define DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING 1
+#define DELETE_CRASH_WHEN_PRESS_CANCEL_SENDING 0
 
 static NSString * const kExtraInfoFileName = @"extraDeviceInfo";
 static NSString * const kThreadInfoFileName = @"threadNamesInfo";
 static NSString * const kRecordedCrashFolderName = @"recorded_crashes";
 static NSString * const kSendingFailedLogFolderName = @"sending_failed_logs";
+static NSString * const kCanceledLogFolderName = @"canceld_logs";
 
 static NSString * const kCrashLogCommonPrefix = @"crashlog_";
 static NSString * const kCrashLogExtraInfoPostfix = @"_extraInfo";
