@@ -147,7 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				410112281962EF0D00595DBF /* CrashReporter.framework */,
-				410112211962B7A800595DBF /* New Group */,
+				410112211962B7A800595DBF /* RMCrashLogReporter */,
 				410111FB1962B55000595DBF /* RMAppDelegate.h */,
 				410111FC1962B55000595DBF /* RMAppDelegate.m */,
 				410111FE1962B55000595DBF /* Main.storyboard */,
@@ -188,10 +188,9 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		410112211962B7A800595DBF /* New Group */ = {
+		410112211962B7A800595DBF /* RMCrashLogReporter */ = {
 			isa = PBXGroup;
 			children = (
-				BD490DB91976F07700871300 /* folder */,
 				410112221962B89000595DBF /* RMCrashLogReporter.h */,
 				410112231962B89000595DBF /* RMCrashLogReporter.m */,
 				41B8DFA21975636F00EDB3C2 /* RMAlertView.h */,
@@ -201,6 +200,15 @@
 				41B8DF9F19752BEB00EDB3C2 /* RMCrashNetwork.h */,
 				41B8DFA019752BEB00EDB3C2 /* RMCrashNetwork.m */,
 				41F96D3B196AEE9400C79413 /* RMCrashLogMacro.h */,
+				413020471977A76900BA81F7 /* crash handler related */,
+				BD490DB91976F07700871300 /* folder manager */,
+			);
+			name = RMCrashLogReporter;
+			sourceTree = "<group>";
+		};
+		413020471977A76900BA81F7 /* crash handler related */ = {
+			isa = PBXGroup;
+			children = (
 				415A7904196C247B00EB6E62 /* RMSystemInfo.h */,
 				415A7905196C247B00EB6E62 /* RMSystemInfo.c */,
 				415A7907196C3C5600EB6E62 /* RMSystemInfoNonAsyncSafe.h */,
@@ -210,10 +218,10 @@
 				415A790D196D797900EB6E62 /* RMThreadName.h */,
 				415A790E196D797900EB6E62 /* RMThreadName.c */,
 			);
-			name = "New Group";
+			name = "crash handler related";
 			sourceTree = "<group>";
 		};
-		BD490DB91976F07700871300 /* folder */ = {
+		BD490DB91976F07700871300 /* folder manager */ = {
 			isa = PBXGroup;
 			children = (
 				BD490DBA1976F08900871300 /* RMFolder.h */,
@@ -221,7 +229,7 @@
 				BD490DBD1976F26E00871300 /* RMCrashlogFolder.h */,
 				BD490DBE1976F26E00871300 /* RMCrashlogFolder.m */,
 			);
-			name = folder;
+			name = "folder manager";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

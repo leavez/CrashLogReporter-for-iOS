@@ -35,35 +35,22 @@ static RMCrashNetwork* sharedInstance = nil;
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     
-        for (NSString *path in self.crashFilePath) {
-            NSDictionary *postedDict = [self assemblePostedDictionayFromPath:path];
+        for (NSString *name in self.crashNames) {
+            RMCrashFile* crash = [self.folder loadCrashWithTimedName:name];
+            NSDictionary *postedDict = [self assemblePostedDictionayWithLog:crash.logData extraInfoDict:crash.extraInfo];
             NSData *data = [self postedBodyData:postedDict];
             BOOL successed = [self postJsonData:data]; // synchronous method, block thread
             if (self.completionBlockForEveryCrash) {
-                self.completionBlockForEveryCrash(successed,path);
+                self.completionBlockForEveryCrash(successed,name);
             }
         }
         
     });
 }
 
-- (NSDictionary *)assemblePostedDictionayFromPath:(NSString *)path
+- (NSDictionary *)assemblePostedDictionayWithLog:(NSData *)logData extraInfoDict:(NSDictionary *)infoDict
 {
     // 1 get the text verison crash log
-
-    // crash log data
-    NSError  *error = nil;
-    NSString *filePathWithName = path;
-    NSData   *logData = [[NSData alloc] initWithContentsOfFile:filePathWithName options:NSDataReadingUncached error:&error];
-    if (error) {
-        NSLog(@"[crash log] could not load crashlog file data, %@", error.localizedDescription);
-        return nil;
-    }
-
-    // extra info dict
-    NSString     *infoDictPathWithName = [filePathWithName stringByAppendingString:kCrashLogExtraInfoPostfix];
-    NSDictionary *infoDict = [[NSDictionary alloc] initWithContentsOfFile:infoDictPathWithName];
-
     NSString *log = [RMCrashReportFomatter textLogForCrashData:logData threadNames:infoDict[kThreadNamesKey]];
 
     // 2 assemble all info to send into one dict

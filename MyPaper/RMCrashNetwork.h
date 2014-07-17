@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "RMCrashLogReporter.h"
+#import "RMCrashlogFolder.h"
 
 @interface RMCrashNetwork : NSObject
-@property (nonatomic,strong) NSArray *crashFilePath;
+@property (nonatomic,strong) RMCrashlogFolder *folder;
+@property (nonatomic,strong) NSArray *crashNames;
 @property (nonatomic,strong) RMConfig *config;
-@property (nonatomic,copy) void (^completionBlockForEveryCrash)(BOOL successed, NSString *path);
+@property (nonatomic,copy) void (^completionBlockForEveryCrash)(BOOL successed, NSString *name);
 
 + (instancetype)sharedInstance;
 

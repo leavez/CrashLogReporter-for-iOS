@@ -18,7 +18,7 @@
     PLCrashReport *report = [[PLCrashReport alloc] initWithData:data error:&error];
 
     if (error) {
-        NSLog(@"[CrashReporter] cannot create report form protobuf data, %@", error.localizedDescription);
+        NSLog(@"[CrashReporter] cannot create report form protobuf data : %@", error.localizedDescription);
         return nil;
     }
 

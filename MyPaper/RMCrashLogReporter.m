@@ -20,6 +20,7 @@
 #import "RMCrashNetwork.h"
 
 #import "RMAlertView.h"
+#import "RMCrashlogFolder.h"
 
 
 /**
@@ -93,11 +94,9 @@ static char* threadNameFilePath;
          */
         
         // Init folder for store crashlogs
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *crashlogFolder = [cachePath stringByAppendingPathComponent: kRecordedCrashFolderName];
-        [self createFolerAtPathIfNotExsit:crashlogFolder];
-        NSString *sendingFailedFolder = [crashlogFolder stringByAppendingPathComponent:kSendingFailedLogFolderName];
-        [self createFolerAtPathIfNotExsit:sendingFailedFolder];
+        NSString *crashlogFolderPath = [cachePath stringByAppendingPathComponent: kRecordedCrashFolderName];
+        RMCrashlogFolder *crashlogFolder = [[RMCrashlogFolder alloc] initWithPath:crashlogFolderPath];
+        RMCrashlogFolder *sendingFaildedFolder = [crashlogFolder createSubfolder:kSendingFailedLogFolderName];
         
         // Organize all crash info into RecordedCrash folder
         // including: 1 move crash log genereated by PLC
@@ -108,21 +107,24 @@ static char* threadNameFilePath;
             if (protoBufData) {
 
                 // move plc's crash
-                NSString *filenameByTime = [NSString stringWithFormat: @"crashlog_%.0f", [NSDate timeIntervalSinceReferenceDate]];
-                filenameByTime = [crashlogFolder stringByAppendingPathComponent:filenameByTime];
-                [protoBufData writeToFile:filenameByTime atomically:YES];
-                [plcrashReporter purgePendingCrashReport];
+                NSString *timedName = [NSString stringWithFormat: @"%.0f", [NSDate timeIntervalSinceReferenceDate]];
                 
                 // assembel extra info to a dict
+                
                 NSMutableDictionary *infoDict = [self assembleExtraInfoAtPath:infoPath];
                 NSArray *threadNames = [self assembleTheadNamesArrayAtPath:threadNamePath];
                 [infoDict setObject:threadNames forKey:kThreadNamesKey];
                 
                 // write file
-                NSString *extraInfoFileName = [filenameByTime stringByAppendingString:kCrashLogExtraInfoPostfix];
-                [infoDict writeToFile:extraInfoFileName atomically:YES];
-                [fileManager removeItemAtPath:infoPath error:nil];
-                [fileManager removeItemAtPath:threadNamePath error:nil];
+                RMCrashFile *crash = [RMCrashFile new];
+                crash.logData = protoBufData;
+                crash.extraInfo = infoDict;
+                [crashlogFolder saveCrashFile:crash withTimedName:timedName];
+                
+                // clean
+                [[NSFileManager defaultManager] removeItemAtPath:infoPath error:nil];
+                [[NSFileManager defaultManager] removeItemAtPath:threadNamePath error:nil];
+                [plcrashReporter purgePendingCrashReport];
                 
             }else{
                 NSLog(@"[CrashReporter] could not load PLC crash data:%@",error.localizedDescription);
@@ -139,26 +141,20 @@ static char* threadNameFilePath;
          */
         
 
-        void (^sendingBlock)(NSArray *validCrashFiles) = ^(NSArray *validCrashFiles){
+        void (^sendingBlock)(RMCrashlogFolder *folder, NSArray *validCrashFiles) = ^(RMCrashlogFolder *folder, NSArray *validCrashFiles){
             
             RMCrashNetwork *servant = [RMCrashNetwork sharedInstance];
             servant.config = config;
-            servant.crashFilePath = validCrashFiles;
-            servant.completionBlockForEveryCrash = ^(BOOL successed, NSString *path){
+            servant.folder = folder;
+            servant.crashNames = validCrashFiles;
+            servant.completionBlockForEveryCrash = ^(BOOL successed, NSString *name){
                 
                 if (successed) {
                     // delete file
-                    [fileManager removeItemAtPath:path error:nil];
-                    path = [self getExtraInfoPathFromLogPath:path];
-                    [fileManager removeItemAtPath:path error:nil];
+                    [folder removeCrashNamed:name];
                 }else{
                     // move to sending failed folder, it will send next time automatically
-                    NSString *fileName = [path lastPathComponent];
-                    NSString *newPath = [sendingFailedFolder stringByAppendingPathComponent:fileName];
-                    [fileManager moveItemAtPath:path toPath:newPath error:nil];
-                    path = [self getExtraInfoPathFromLogPath:path];
-                    newPath = [self getExtraInfoPathFromLogPath:newPath];
-                    [fileManager moveItemAtPath:path toPath:newPath error:nil];
+                    [folder moveCrashNamed:name toFolder:sendingFaildedFolder];
                 }
             };
             // sending
@@ -166,17 +162,17 @@ static char* threadNameFilePath;
         };
         
         // If has pending crash logs
-        NSArray *validCrashFiles = [self getCrashPathesAtFolder:crashlogFolder];
+        NSArray *validCrashFiles = [crashlogFolder crashNamesInFolder];
         BOOL hasPendingCrash = (validCrashFiles.count > 0);
         if (hasPendingCrash) {
             [self askToSend:config sendBlock:^{
-                sendingBlock(validCrashFiles);
+                sendingBlock(crashlogFolder, validCrashFiles);
             }];
         }
         
         // automatically send crash that failed sending last time
-        NSArray* sendingFailedLogPaths = [self getCrashPathesAtFolder:sendingFailedFolder];
-        sendingBlock( sendingFailedLogPaths );
+        NSArray* sendingFailedLogNames = [sendingFaildedFolder crashNamesInFolder];
+        sendingBlock( sendingFaildedFolder, sendingFailedLogNames );
         
         
         
@@ -346,50 +342,6 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
     return allLines; // every line is a thead name
 }
 
-+ (NSString *)getExtraInfoPathFromLogPath:(NSString *)path
-{
-    return [path stringByAppendingString:kCrashLogExtraInfoPostfix];
-}
-
-+ (void)createFolerAtPathIfNotExsit:(NSString *)path
-{
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        NSError *error = nil;
-        NSDictionary *attributes = [NSDictionary dictionaryWithObject:@(0755) forKey:NSFilePosixPermissions];
-        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:attributes error:&error];
-        if (error) {
-            NSLog(@"[CrashReporter] could not Create foler for crashes:%@",error.localizedDescription);
-        }
-    }
-}
-
-+ (NSArray *)getCrashPathesAtFolder:(NSString*)path
-{
-    NSError *error = nil;
-    NSArray* fileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:&error];
-    NSMutableArray *validCrashFiles = [NSMutableArray array];
-    for (NSString *filename in fileNames) {
-        if ([filename hasPrefix:@"crashlog"] &&
-            ![filename hasSuffix:kCrashLogExtraInfoPostfix]) {
-            NSString *filePathWithName = [path stringByAppendingPathComponent:filename];
-            [validCrashFiles addObject:filePathWithName];
-        }
-    }
-    return validCrashFiles;
-}
-
-+ (void)deleteCrashesInCrashFolder
-{
-    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
-    NSString *crashlogFolder = [cachePath stringByAppendingPathComponent: kRecordedCrashFolderName];
-    NSArray *filenames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:crashlogFolder error:nil];
-    for(NSString *name in filenames){
-        if ([name hasPrefix:@"crashlog"] ){
-            NSString *path = [crashlogFolder stringByAppendingPathComponent:name];
-            [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-        }
-    }
-}
 
 @end
 

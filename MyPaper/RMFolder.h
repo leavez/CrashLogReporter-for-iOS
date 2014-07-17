@@ -11,6 +11,10 @@
 @interface RMFolder : NSObject
 @property (nonatomic,copy) NSString *path;
 
+
+// create if not exsit
+- (instancetype)initWithPath:(NSString *)path;
+
 - (NSArray *)fileNamesInFolder;
 
 - (void)saveDictionary:(NSDictionary *)dict withFilename:(NSString*)name;
@@ -20,6 +24,6 @@
 - (NSData *)loadDataWithName:(NSString*)name;
 
 - (void)deleteFileNamed:(NSString *)name;
-
 - (void)moveFileNamed:(NSString *)file toFolder:(RMFolder *)folder;
+
 @end

@@ -15,7 +15,10 @@ static NSString * const kExtraInfoFileName = @"extraDeviceInfo";
 static NSString * const kThreadInfoFileName = @"threadNamesInfo";
 static NSString * const kRecordedCrashFolderName = @"recorded_crashes";
 static NSString * const kSendingFailedLogFolderName = @"sending_failed_logs";
+
+static NSString * const kCrashLogCommonPrefix = @"crashlog_";
 static NSString * const kCrashLogExtraInfoPostfix = @"_extraInfo";
+
 static NSString * const kThreadNamesKey = @"theadNames";
 
 static NSString * const kShouldAlwaysSendingCrashKey = @"kShouldAlwaysSendingCrashKey";
