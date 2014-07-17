@@ -143,7 +143,7 @@ static char* threadNameFilePath;
 
         void (^sendingBlock)(RMCrashlogFolder *folder, NSArray *validCrashFiles) = ^(RMCrashlogFolder *folder, NSArray *validCrashFiles){
             
-            RMCrashNetwork *servant = [RMCrashNetwork sharedInstance];
+            RMCrashNetwork *servant = [[RMCrashNetwork alloc] init];
             servant.config = config;
             servant.folder = folder;
             servant.crashNames = validCrashFiles;
@@ -152,13 +152,15 @@ static char* threadNameFilePath;
                 if (successed) {
                     // delete file
                     [folder removeCrashNamed:name];
+                    NSLog(@"[crash log] sent a crash log successfully");
                 }else{
                     // move to sending failed folder, it will send next time automatically
                     [folder moveCrashNamed:name toFolder:sendingFaildedFolder];
+                    NSLog(@"[crash log] sending failed once");
                 }
             };
             // sending
-            [servant sendCrashes];
+            [servant sendCrashes];  // Synchronous method run in background thread
         };
         
         // If has pending crash logs

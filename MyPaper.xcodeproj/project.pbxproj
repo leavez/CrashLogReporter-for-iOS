@@ -193,13 +193,8 @@
 			children = (
 				410112221962B89000595DBF /* RMCrashLogReporter.h */,
 				410112231962B89000595DBF /* RMCrashLogReporter.m */,
-				41B8DFA21975636F00EDB3C2 /* RMAlertView.h */,
-				41B8DFA31975636F00EDB3C2 /* RMAlertView.m */,
-				413AFE1A1974E21A00169DE4 /* RMCrashReportFomatter.h */,
-				413AFE1B1974E21A00169DE4 /* RMCrashReportFomatter.m */,
-				41B8DF9F19752BEB00EDB3C2 /* RMCrashNetwork.h */,
-				41B8DFA019752BEB00EDB3C2 /* RMCrashNetwork.m */,
 				41F96D3B196AEE9400C79413 /* RMCrashLogMacro.h */,
+				413020481977A81900BA81F7 /* support class */,
 				413020471977A76900BA81F7 /* crash handler related */,
 				BD490DB91976F07700871300 /* folder manager */,
 			);
@@ -219,6 +214,19 @@
 				415A790E196D797900EB6E62 /* RMThreadName.c */,
 			);
 			name = "crash handler related";
+			sourceTree = "<group>";
+		};
+		413020481977A81900BA81F7 /* support class */ = {
+			isa = PBXGroup;
+			children = (
+				413AFE1A1974E21A00169DE4 /* RMCrashReportFomatter.h */,
+				413AFE1B1974E21A00169DE4 /* RMCrashReportFomatter.m */,
+				41B8DF9F19752BEB00EDB3C2 /* RMCrashNetwork.h */,
+				41B8DFA019752BEB00EDB3C2 /* RMCrashNetwork.m */,
+				41B8DFA21975636F00EDB3C2 /* RMAlertView.h */,
+				41B8DFA31975636F00EDB3C2 /* RMAlertView.m */,
+			);
+			name = "support class";
 			sourceTree = "<group>";
 		};
 		BD490DB91976F07700871300 /* folder manager */ = {

@@ -16,8 +16,7 @@
 @property (nonatomic,strong) RMConfig *config;
 @property (nonatomic,copy) void (^completionBlockForEveryCrash)(BOOL successed, NSString *name);
 
-+ (instancetype)sharedInstance;
-
+// Synchronous method run in background thread
 - (void)sendCrashes;
 
 @end

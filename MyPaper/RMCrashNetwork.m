@@ -12,24 +12,20 @@
 #include <sys/sysctl.h>
 
 @interface RMCrashNetwork()
-//@property (nonatomic,strong) NSString *sendingCrashPath;
-//@property (nonatomic,strong) NSURLConnection *connection;
-//@property (nonatomic,assign) NSInteger statusCode;
-
 @end
 
 @implementation RMCrashNetwork
 
-static RMCrashNetwork* sharedInstance = nil;
-
-+ (instancetype)sharedInstance
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
-}
+//static RMCrashNetwork* sharedInstance = nil;
+//
+//+ (instancetype)sharedInstance
+//{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        sharedInstance = [[self alloc] init];
+//    });
+//    return sharedInstance;
+//}
 
 - (void)sendCrashes;
 {
@@ -101,9 +97,21 @@ static RMCrashNetwork* sharedInstance = nil;
     
     NSURLResponse *response = nil;
     NSError *error = nil;
-    [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     NSUInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-    return (statusCode >= 200 && statusCode < 400);
+    if (statusCode >= 200 && statusCode < 400) {
+        return NO;
+    }else{
+        NSDictionary *parsedJson = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+        int errorCode = [parsedJson[@"error_code"] integerValue];
+        if (errorCode == 0) {
+            return YES;
+        }else{
+            NSString *errorMsg = parsedJson[@"error_msg"];
+            NSLog(@"[crash log] sending Failed: %@",errorMsg);
+            return NO;
+        }
+    }
 }
 
 //- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
