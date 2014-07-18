@@ -26,15 +26,14 @@ Pod::Spec.new do |s|
   s.platform     = :ios
 
   s.source       = { :git => "https://github.com/leavez/MyPaper.git", :tag => "v1.0" }
-  
 
-  s.source_files = "MyPaper/"
-  s.public_header_files = "/MyPaper/RMCrashLogReporter.h","MyPaper/RMCrashLogMacro.h"
-  s.exclude_files = "MyPaper/RMAppDelegate.{h.m}","MyPaper/RMViewController.{h.m}","MyPaper/MyPaper-Info.plist","MyPaper/MyPaper-Prefix.pch","MyPaper/main.m","MyPaper/Base.lproj","MyPaper/en.lproj","MyPaper/Images.xcassets","MyPaper/RMThreadName.{h,c}"
+  s.source_files = "MyPaper/lib"
+  s.public_header_files = "/MyPaper/lib/RMCrashLogReporter.h","MyPaper/lib/RMCrashLogMacro.h"
+  s.exclude_files = "MyPaper/lib/RMThreadName.{h,c}"
   s.requires_arc = true
 
   s.subspec 'noARC' do |noARC|
-    noARC.source_files = "MyPaper/RMThreadName.{h,c}"
+    noARC.source_files = "MyPaper/lib/RMThreadName.{h,c}"
     noARC.public_header_files = ""
     noARC.requires_arc = false
   end
