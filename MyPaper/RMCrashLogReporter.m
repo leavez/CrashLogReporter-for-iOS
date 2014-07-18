@@ -22,6 +22,8 @@
 #import "RMAlertView.h"
 #import "RMCrashlogFolder.h"
 #import "RMReachability.h"
+#include <sys/sysctl.h>
+
 
 /**
  * PLC的回调，记录一些其他的信息，比如磁盘空间，是否越狱。
@@ -74,11 +76,24 @@ static char* threadNameFilePath;
             .handleSignal = recordExtraInfoCallBack
         };
         [plcrashReporter setCrashCallbacks:&crashCallbacks];
+#ifdef DEBUG
+        if (![self isDebuggerAttached]) {
+            NSError *error = nil;
+            BOOL success = [plcrashReporter enableCrashReporterAndReturnError:&error];
+            if (!success) {
+                RMErrorLog(@"could not enable PLC", error);
+            }
+            RMLog(@"RMCrashReporter service is Started");
+        }else{
+            RMLog(@"Debugger is attached, RMCrashReporter is Disabled temporarily. Dont't worry, it work well.")
+        }
+#else
         NSError *error = nil;
         BOOL success = [plcrashReporter enableCrashReporterAndReturnError:&error];
         if (!success) {
             RMErrorLog(@"could not enable PLC", error);
         }
+#endif
         
         // init filepath for extra info
         NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
@@ -110,6 +125,7 @@ static char* threadNameFilePath;
         //            2 and assemble the extra info into one dictionay, save it in the RecordedCrash folder
         //            3 name extra info dict 'extraInfo_******', where ***** is crashlog name.
         if ( [plcrashReporter hasPendingCrashReport] ) {
+            NSError *error = nil;
             NSData *protoBufData = [plcrashReporter loadPendingCrashReportDataAndReturnError:&error];
             if (protoBufData) {
 
@@ -224,7 +240,8 @@ static char* threadNameFilePath;
          *
          *     TODO:这里未检查nsexceptionhander，只检查了signal
          */
-        if (config.shouldCheckCrashHandlerNotModifiedByOthers) {
+        if (config.shouldCheckCrashHandlerNotModifiedByOthers &&
+            ![self isDebuggerAttached] ) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             
                 // 获取signal handler
@@ -282,6 +299,7 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
 //    
 //    // proximity info
 //    writeUnsignInt(extraInfoFilePath, "proximityState", getProximityState());
+
 }
 
 
@@ -378,6 +396,31 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
 }
 
 
+#ifdef DEBUG
+// from https://github.com/plausiblelabs/plcrashreporter/blob/2dd862ce049e6f43feb355308dfc710f3af54c4d/Source/Crash%20Demo/main.m#L96
++ (BOOL)isDebuggerAttached
+{
+    struct kinfo_proc info;
+    size_t info_size = sizeof(info);
+    int name[4];
+    
+    name[0] = CTL_KERN;
+    name[1] = KERN_PROC;
+    name[2] = KERN_PROC_PID;
+    name[3] = getpid();
+    
+    if (sysctl(name, 4, &info, &info_size, NULL, 0) == -1) {
+        NSLog(@"sysctl() failed: %s", strerror(errno));
+        return NO;
+    }
+    
+    if ((info.kp_proc.p_flag & P_TRACED) != 0){
+        return YES;
+    }
+    return NO;
+}
+#endif
+
 @end
 
 @implementation RMConfig
@@ -389,7 +432,7 @@ void recordExtraInfoCallBack(siginfo_t *info, ucontext_t *uap, void *context)
         // default settings
         self.serverURL = kDefaultServerURL;
         
-        self.onlySendInWifi = NO;
+        self.onlySendInWifi = YES;
         self.shouldAutoSubmitCrashReport = NO;
         self.shouldCheckCrashHandlerNotModifiedByOthers = YES;
     }
