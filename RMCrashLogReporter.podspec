@@ -30,11 +30,11 @@ Pod::Spec.new do |s|
 
   s.source_files = "MyPaper/"
   s.public_header_files = "/MyPaper/RMCrashLogReporter.h","MyPaper/RMCrashLogMacro.h"
-  s.exclude_files = "MyPaper/RMAppDelegate.{h.m}","MyPaper/RMViewController.{h.m}","MyPaper/MyPaper-Info.plist","MyPaper/MyPaper-Prefix.pch","MyPaper/main.m","MyPaper/Base.lproj","MyPaper/en.lproj","MyPaper/Images.xcassets"
+  s.exclude_files = "MyPaper/RMAppDelegate.{h.m}","MyPaper/RMViewController.{h.m}","MyPaper/MyPaper-Info.plist","MyPaper/MyPaper-Prefix.pch","MyPaper/main.m","MyPaper/Base.lproj","MyPaper/en.lproj","MyPaper/Images.xcassets","MyPaper/RMThreadName.{h,c}"
   s.requires_arc = true
 
   s.subspec 'noARC' do |noARC|
-    noARC.source_files = "MyPaper/RMThreadName.{h,m}"
+    noARC.source_files = "MyPaper/RMThreadName.{h,c}"
     noARC.public_header_files = ""
     noARC.requires_arc = false
   end
