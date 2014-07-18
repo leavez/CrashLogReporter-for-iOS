@@ -36,6 +36,29 @@
 		419AAEA419792A5700E76DC9 /* RMThreadName.c in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE9F19792A5700E76DC9 /* RMThreadName.c */; };
 		419AAEA919792A6400E76DC9 /* RMCrashlogFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAEA619792A6400E76DC9 /* RMCrashlogFolder.m */; };
 		419AAEAA19792A6400E76DC9 /* RMFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAEA819792A6400E76DC9 /* RMFolder.m */; };
+		419AAEAB19792B3300E76DC9 /* RMCrashLogMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAE8919792A2A00E76DC9 /* RMCrashLogMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEAC19792B3300E76DC9 /* RMCrashLogReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAE8A19792A2A00E76DC9 /* RMCrashLogReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEAD19792B3300E76DC9 /* RMAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAE8D19792A3E00E76DC9 /* RMAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEAE19792B3300E76DC9 /* RMCrashNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAE8F19792A3E00E76DC9 /* RMCrashNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEAF19792B3300E76DC9 /* RMCrashReportFomatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAE9119792A3E00E76DC9 /* RMCrashReportFomatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEB019792B3300E76DC9 /* RMReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAE9319792A3E00E76DC9 /* RMReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEB119792B3300E76DC9 /* RMFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAE9A19792A5700E76DC9 /* RMFileWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEB219792B3300E76DC9 /* RMSystemInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAE9C19792A5700E76DC9 /* RMSystemInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEB319792B3300E76DC9 /* RMSystemInfoNonAsyncSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAE9D19792A5700E76DC9 /* RMSystemInfoNonAsyncSafe.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEB419792B3300E76DC9 /* RMThreadName.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAEA019792A5700E76DC9 /* RMThreadName.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEB519792B3300E76DC9 /* RMCrashlogFolder.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAEA519792A6400E76DC9 /* RMCrashlogFolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEB619792B3300E76DC9 /* RMFolder.h in Headers */ = {isa = PBXBuildFile; fileRef = 419AAEA719792A6400E76DC9 /* RMFolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAEB719792B4700E76DC9 /* RMCrashLogReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE8B19792A2A00E76DC9 /* RMCrashLogReporter.m */; };
+		419AAEB819792B4700E76DC9 /* RMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE8E19792A3E00E76DC9 /* RMAlertView.m */; };
+		419AAEB919792B4700E76DC9 /* RMCrashNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE9019792A3E00E76DC9 /* RMCrashNetwork.m */; };
+		419AAEBA19792B4700E76DC9 /* RMCrashReportFomatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE9219792A3E00E76DC9 /* RMCrashReportFomatter.m */; };
+		419AAEBB19792B4700E76DC9 /* RMReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE9419792A3E00E76DC9 /* RMReachability.m */; };
+		419AAEBC19792B4700E76DC9 /* RMFileWriter.c in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE9919792A5700E76DC9 /* RMFileWriter.c */; };
+		419AAEBD19792B4700E76DC9 /* RMSystemInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE9B19792A5700E76DC9 /* RMSystemInfo.c */; };
+		419AAEBE19792B4700E76DC9 /* RMSystemInfoNonAsyncSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE9E19792A5700E76DC9 /* RMSystemInfoNonAsyncSafe.m */; };
+		419AAEBF19792B4700E76DC9 /* RMThreadName.c in Sources */ = {isa = PBXBuildFile; fileRef = 419AAE9F19792A5700E76DC9 /* RMThreadName.c */; };
+		419AAEC019792B4700E76DC9 /* RMCrashlogFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAEA619792A6400E76DC9 /* RMCrashlogFolder.m */; };
+		419AAEC119792B4700E76DC9 /* RMFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 419AAEA819792A6400E76DC9 /* RMFolder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -241,14 +264,14 @@
 		413020471977A76900BA81F7 /* Crash Handler Related */ = {
 			isa = PBXGroup;
 			children = (
-				419AAE9919792A5700E76DC9 /* RMFileWriter.c */,
 				419AAE9A19792A5700E76DC9 /* RMFileWriter.h */,
-				419AAE9B19792A5700E76DC9 /* RMSystemInfo.c */,
+				419AAE9919792A5700E76DC9 /* RMFileWriter.c */,
 				419AAE9C19792A5700E76DC9 /* RMSystemInfo.h */,
+				419AAE9B19792A5700E76DC9 /* RMSystemInfo.c */,
 				419AAE9D19792A5700E76DC9 /* RMSystemInfoNonAsyncSafe.h */,
 				419AAE9E19792A5700E76DC9 /* RMSystemInfoNonAsyncSafe.m */,
-				419AAE9F19792A5700E76DC9 /* RMThreadName.c */,
 				419AAEA019792A5700E76DC9 /* RMThreadName.h */,
+				419AAE9F19792A5700E76DC9 /* RMThreadName.c */,
 			);
 			name = "Crash Handler Related";
 			sourceTree = "<group>";
@@ -346,6 +369,18 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				419AAEAB19792B3300E76DC9 /* RMCrashLogMacro.h in Headers */,
+				419AAEAC19792B3300E76DC9 /* RMCrashLogReporter.h in Headers */,
+				419AAEAD19792B3300E76DC9 /* RMAlertView.h in Headers */,
+				419AAEAE19792B3300E76DC9 /* RMCrashNetwork.h in Headers */,
+				419AAEAF19792B3300E76DC9 /* RMCrashReportFomatter.h in Headers */,
+				419AAEB019792B3300E76DC9 /* RMReachability.h in Headers */,
+				419AAEB119792B3300E76DC9 /* RMFileWriter.h in Headers */,
+				419AAEB219792B3300E76DC9 /* RMSystemInfo.h in Headers */,
+				419AAEB319792B3300E76DC9 /* RMSystemInfoNonAsyncSafe.h in Headers */,
+				419AAEB419792B3300E76DC9 /* RMThreadName.h in Headers */,
+				419AAEB519792B3300E76DC9 /* RMCrashlogFolder.h in Headers */,
+				419AAEB619792B3300E76DC9 /* RMFolder.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +556,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				419AAEB719792B4700E76DC9 /* RMCrashLogReporter.m in Sources */,
+				419AAEB819792B4700E76DC9 /* RMAlertView.m in Sources */,
+				419AAEB919792B4700E76DC9 /* RMCrashNetwork.m in Sources */,
+				419AAEBA19792B4700E76DC9 /* RMCrashReportFomatter.m in Sources */,
+				419AAEBB19792B4700E76DC9 /* RMReachability.m in Sources */,
+				419AAEBC19792B4700E76DC9 /* RMFileWriter.c in Sources */,
+				419AAEBD19792B4700E76DC9 /* RMSystemInfo.c in Sources */,
+				419AAEBE19792B4700E76DC9 /* RMSystemInfoNonAsyncSafe.m in Sources */,
+				419AAEBF19792B4700E76DC9 /* RMThreadName.c in Sources */,
+				419AAEC019792B4700E76DC9 /* RMCrashlogFolder.m in Sources */,
+				419AAEC119792B4700E76DC9 /* RMFolder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
