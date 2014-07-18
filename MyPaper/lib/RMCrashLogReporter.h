@@ -17,6 +17,8 @@
 //  在连接电脑调试运行的时候，崩溃记录服务不启动。崩溃时，log窗口可以正常即使打印崩溃信息。
 //  其他时候，崩溃日志记录功能启动，正常工作。
 //
+//  use:
+//  pod 'RMCrashLogReporter' , :git => 'https://github.com/leavez/MyPaper.git' ,:branch => 'pod'
 
 #import <Foundation/Foundation.h>
 
