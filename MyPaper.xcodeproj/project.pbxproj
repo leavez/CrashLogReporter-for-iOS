@@ -197,14 +197,14 @@
 				410112221962B89000595DBF /* RMCrashLogReporter.h */,
 				410112231962B89000595DBF /* RMCrashLogReporter.m */,
 				41F96D3B196AEE9400C79413 /* RMCrashLogMacro.h */,
-				413020481977A81900BA81F7 /* support class */,
-				413020471977A76900BA81F7 /* crash handler related */,
-				BD490DB91976F07700871300 /* folder manager */,
+				413020481977A81900BA81F7 /* Support Class */,
+				413020471977A76900BA81F7 /* Crash Handler Related */,
+				BD490DB91976F07700871300 /* Folder Manager */,
 			);
 			name = RMCrashLogReporter;
 			sourceTree = "<group>";
 		};
-		413020471977A76900BA81F7 /* crash handler related */ = {
+		413020471977A76900BA81F7 /* Crash Handler Related */ = {
 			isa = PBXGroup;
 			children = (
 				415A7904196C247B00EB6E62 /* RMSystemInfo.h */,
@@ -216,10 +216,10 @@
 				415A790D196D797900EB6E62 /* RMThreadName.h */,
 				415A790E196D797900EB6E62 /* RMThreadName.c */,
 			);
-			name = "crash handler related";
+			name = "Crash Handler Related";
 			sourceTree = "<group>";
 		};
-		413020481977A81900BA81F7 /* support class */ = {
+		413020481977A81900BA81F7 /* Support Class */ = {
 			isa = PBXGroup;
 			children = (
 				413AFE1A1974E21A00169DE4 /* RMCrashReportFomatter.h */,
@@ -231,10 +231,10 @@
 				4130204A1977D45E00BA81F7 /* RMReachability.h */,
 				4130204B1977D45E00BA81F7 /* RMReachability.m */,
 			);
-			name = "support class";
+			name = "Support Class";
 			sourceTree = "<group>";
 		};
-		BD490DB91976F07700871300 /* folder manager */ = {
+		BD490DB91976F07700871300 /* Folder Manager */ = {
 			isa = PBXGroup;
 			children = (
 				BD490DBA1976F08900871300 /* RMFolder.h */,
@@ -242,7 +242,7 @@
 				BD490DBD1976F26E00871300 /* RMCrashlogFolder.h */,
 				BD490DBE1976F26E00871300 /* RMCrashlogFolder.m */,
 			);
-			name = "folder manager";
+			name = "Folder Manager";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
