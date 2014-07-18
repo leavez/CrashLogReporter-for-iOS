@@ -29,32 +29,32 @@
 		415A7909196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 415A7908196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m */; };
 		415A790C196C3ECC00EB6E62 /* RMFileWriter.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A790A196C3ECC00EB6E62 /* RMFileWriter.c */; };
 		415A790F196D797900EB6E62 /* RMThreadName.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A790E196D797900EB6E62 /* RMThreadName.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		419AAD8E197902C800E76DC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410111EC1962B55000595DBF /* Foundation.framework */; };
-		419AAD94197902C800E76DC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 419AAD92197902C800E76DC9 /* InfoPlist.strings */; };
-		419AADA71979034600E76DC9 /* RMCrashLogReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 410112231962B89000595DBF /* RMCrashLogReporter.m */; };
-		419AADA81979034600E76DC9 /* RMCrashReportFomatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 413AFE1B1974E21A00169DE4 /* RMCrashReportFomatter.m */; };
-		419AADA91979034600E76DC9 /* RMCrashNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8DFA019752BEB00EDB3C2 /* RMCrashNetwork.m */; };
-		419AADAA1979034600E76DC9 /* RMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8DFA31975636F00EDB3C2 /* RMAlertView.m */; };
-		419AADAB1979034600E76DC9 /* RMReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4130204B1977D45E00BA81F7 /* RMReachability.m */; };
-		419AADAC1979034600E76DC9 /* RMSystemInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A7905196C247B00EB6E62 /* RMSystemInfo.c */; };
-		419AADAD1979034600E76DC9 /* RMSystemInfoNonAsyncSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 415A7908196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m */; };
-		419AADAE1979034600E76DC9 /* RMFileWriter.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A790A196C3ECC00EB6E62 /* RMFileWriter.c */; };
-		419AADAF1979034600E76DC9 /* RMThreadName.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A790E196D797900EB6E62 /* RMThreadName.c */; };
-		419AADB01979034600E76DC9 /* RMFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD490DBB1976F08900871300 /* RMFolder.m */; };
-		419AADB11979034600E76DC9 /* RMCrashlogFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD490DBE1976F26E00871300 /* RMCrashlogFolder.m */; };
-		419AADB21979035A00E76DC9 /* RMCrashLogReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 410112221962B89000595DBF /* RMCrashLogReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADB31979035A00E76DC9 /* RMCrashLogMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F96D3B196AEE9400C79413 /* RMCrashLogMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADB41979035A00E76DC9 /* RMCrashReportFomatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 413AFE1A1974E21A00169DE4 /* RMCrashReportFomatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADB51979035A00E76DC9 /* RMCrashNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B8DF9F19752BEB00EDB3C2 /* RMCrashNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADB61979035A00E76DC9 /* RMAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B8DFA21975636F00EDB3C2 /* RMAlertView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADB71979035A00E76DC9 /* RMReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 4130204A1977D45E00BA81F7 /* RMReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADB81979035A00E76DC9 /* RMSystemInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 415A7904196C247B00EB6E62 /* RMSystemInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADB91979035A00E76DC9 /* RMSystemInfoNonAsyncSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 415A7907196C3C5600EB6E62 /* RMSystemInfoNonAsyncSafe.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADBA1979035A00E76DC9 /* RMFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 415A790B196C3ECC00EB6E62 /* RMFileWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADBB1979035A00E76DC9 /* RMThreadName.h in Headers */ = {isa = PBXBuildFile; fileRef = 415A790D196D797900EB6E62 /* RMThreadName.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADBC1979035A00E76DC9 /* RMFolder.h in Headers */ = {isa = PBXBuildFile; fileRef = BD490DBA1976F08900871300 /* RMFolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADBD1979035A00E76DC9 /* RMCrashlogFolder.h in Headers */ = {isa = PBXBuildFile; fileRef = BD490DBD1976F26E00871300 /* RMCrashlogFolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		419AADBE197903A900E76DC9 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410112281962EF0D00595DBF /* CrashReporter.framework */; };
+		419AAE1A1979060600E76DC9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410111EC1962B55000595DBF /* Foundation.framework */; };
+		419AAE201979060600E76DC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 419AAE1E1979060600E76DC9 /* InfoPlist.strings */; };
+		419AAE281979060B00E76DC9 /* RMCrashLogReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 410112231962B89000595DBF /* RMCrashLogReporter.m */; };
+		419AAE291979060B00E76DC9 /* RMCrashReportFomatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 413AFE1B1974E21A00169DE4 /* RMCrashReportFomatter.m */; };
+		419AAE2A1979060B00E76DC9 /* RMCrashNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8DFA019752BEB00EDB3C2 /* RMCrashNetwork.m */; };
+		419AAE2B1979060B00E76DC9 /* RMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8DFA31975636F00EDB3C2 /* RMAlertView.m */; };
+		419AAE2C1979060B00E76DC9 /* RMReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4130204B1977D45E00BA81F7 /* RMReachability.m */; };
+		419AAE2D1979060B00E76DC9 /* RMSystemInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A7905196C247B00EB6E62 /* RMSystemInfo.c */; };
+		419AAE2E1979060B00E76DC9 /* RMSystemInfoNonAsyncSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = 415A7908196C3C5700EB6E62 /* RMSystemInfoNonAsyncSafe.m */; };
+		419AAE2F1979060B00E76DC9 /* RMFileWriter.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A790A196C3ECC00EB6E62 /* RMFileWriter.c */; };
+		419AAE301979060B00E76DC9 /* RMThreadName.c in Sources */ = {isa = PBXBuildFile; fileRef = 415A790E196D797900EB6E62 /* RMThreadName.c */; };
+		419AAE311979060B00E76DC9 /* RMFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD490DBB1976F08900871300 /* RMFolder.m */; };
+		419AAE321979060B00E76DC9 /* RMCrashlogFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD490DBE1976F26E00871300 /* RMCrashlogFolder.m */; };
+		419AAE331979062200E76DC9 /* RMCrashLogReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 410112221962B89000595DBF /* RMCrashLogReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE341979062200E76DC9 /* RMCrashLogMacro.h in Headers */ = {isa = PBXBuildFile; fileRef = 41F96D3B196AEE9400C79413 /* RMCrashLogMacro.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE351979062200E76DC9 /* RMCrashReportFomatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 413AFE1A1974E21A00169DE4 /* RMCrashReportFomatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE361979062200E76DC9 /* RMCrashNetwork.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B8DF9F19752BEB00EDB3C2 /* RMCrashNetwork.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE371979062200E76DC9 /* RMAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 41B8DFA21975636F00EDB3C2 /* RMAlertView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		419AAE381979062200E76DC9 /* RMReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 4130204A1977D45E00BA81F7 /* RMReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE391979062200E76DC9 /* RMSystemInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 415A7904196C247B00EB6E62 /* RMSystemInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE3A1979062200E76DC9 /* RMSystemInfoNonAsyncSafe.h in Headers */ = {isa = PBXBuildFile; fileRef = 415A7907196C3C5600EB6E62 /* RMSystemInfoNonAsyncSafe.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE3B1979062200E76DC9 /* RMFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 415A790B196C3ECC00EB6E62 /* RMFileWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE3C1979062200E76DC9 /* RMThreadName.h in Headers */ = {isa = PBXBuildFile; fileRef = 415A790D196D797900EB6E62 /* RMThreadName.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE3D1979062200E76DC9 /* RMFolder.h in Headers */ = {isa = PBXBuildFile; fileRef = BD490DBA1976F08900871300 /* RMFolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE3E1979062200E76DC9 /* RMCrashlogFolder.h in Headers */ = {isa = PBXBuildFile; fileRef = BD490DBD1976F26E00871300 /* RMCrashlogFolder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		419AAE3F1979065100E76DC9 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 410112281962EF0D00595DBF /* CrashReporter.framework */; };
 		41B8DFA119752BEB00EDB3C2 /* RMCrashNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8DFA019752BEB00EDB3C2 /* RMCrashNetwork.m */; };
 		41B8DFA41975636F00EDB3C2 /* RMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 41B8DFA31975636F00EDB3C2 /* RMAlertView.m */; };
 		BD490DBC1976F08900871300 /* RMFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD490DBB1976F08900871300 /* RMFolder.m */; };
@@ -106,12 +106,23 @@
 		415A790B196C3ECC00EB6E62 /* RMFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMFileWriter.h; sourceTree = "<group>"; };
 		415A790D196D797900EB6E62 /* RMThreadName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMThreadName.h; sourceTree = "<group>"; };
 		415A790E196D797900EB6E62 /* RMThreadName.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = RMThreadName.c; sourceTree = "<group>"; };
-		419AAD8D197902C800E76DC9 /* RMCrashReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = RMCrashReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		419AAD91197902C800E76DC9 /* RMCrashReporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RMCrashReporter-Info.plist"; sourceTree = "<group>"; };
 		419AAD93197902C800E76DC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		419AAD95197902C800E76DC9 /* RMCrashReporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RMCrashReporter-Prefix.pch"; sourceTree = "<group>"; };
 		419AAD96197902C800E76DC9 /* RMCrashReporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMCrashReporter.h; sourceTree = "<group>"; };
 		419AAD97197902C800E76DC9 /* RMCrashReporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMCrashReporter.m; sourceTree = "<group>"; };
+		419AADE51979052300E76DC9 /* RMCrashReporter copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "RMCrashReporter copy-Info.plist"; path = "/Users/leave/wor/code/MyPaper/RMCrashReporter copy-Info.plist"; sourceTree = "<absolute>"; };
+		419AADF01979059900E76DC9 /* RMCrashLogReporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RMCrashLogReporter-Info.plist"; sourceTree = "<group>"; };
+		419AADF21979059900E76DC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		419AADF41979059900E76DC9 /* RMCrashLogReporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RMCrashLogReporter-Prefix.pch"; sourceTree = "<group>"; };
+		419AADF51979059900E76DC9 /* RMCrashLogReporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMCrashLogReporter.h; sourceTree = "<group>"; };
+		419AADF61979059900E76DC9 /* RMCrashLogReporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMCrashLogReporter.m; sourceTree = "<group>"; };
+		419AAE191979060500E76DC9 /* RMCrashLogReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework.static; includeInIndex = 0; path = RMCrashLogReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		419AAE1D1979060600E76DC9 /* RMCrashLogReporter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RMCrashLogReporter-Info.plist"; sourceTree = "<group>"; };
+		419AAE1F1979060600E76DC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		419AAE211979060600E76DC9 /* RMCrashLogReporter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RMCrashLogReporter-Prefix.pch"; sourceTree = "<group>"; };
+		419AAE221979060600E76DC9 /* RMCrashLogReporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMCrashLogReporter.h; sourceTree = "<group>"; };
+		419AAE231979060600E76DC9 /* RMCrashLogReporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMCrashLogReporter.m; sourceTree = "<group>"; };
 		41B8DF9F19752BEB00EDB3C2 /* RMCrashNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCrashNetwork.h; sourceTree = "<group>"; };
 		41B8DFA019752BEB00EDB3C2 /* RMCrashNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCrashNetwork.m; sourceTree = "<group>"; };
 		41B8DFA21975636F00EDB3C2 /* RMAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAlertView.h; sourceTree = "<group>"; };
@@ -145,12 +156,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		419AAD88197902C800E76DC9 /* Frameworks */ = {
+		419AAE141979060500E76DC9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				419AAD8E197902C800E76DC9 /* Foundation.framework in Frameworks */,
-				419AADBE197903A900E76DC9 /* CrashReporter.framework in Frameworks */,
+				419AAE3F1979065100E76DC9 /* CrashReporter.framework in Frameworks */,
+				419AAE1A1979060600E76DC9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,8 +174,11 @@
 				410111F21962B55000595DBF /* MyPaper */,
 				410112111962B55000595DBF /* MyPaperTests */,
 				419AAD8F197902C800E76DC9 /* RMCrashReporter */,
+				419AADEE1979059900E76DC9 /* RMCrashLogReporter */,
+				419AAE1B1979060600E76DC9 /* RMCrashLogReporter */,
 				410111EB1962B55000595DBF /* Frameworks */,
 				410111EA1962B55000595DBF /* Products */,
+				419AADE51979052300E76DC9 /* RMCrashReporter copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -173,7 +187,7 @@
 			children = (
 				410111E91962B55000595DBF /* MyPaper.app */,
 				4101120A1962B55000595DBF /* MyPaperTests.xctest */,
-				419AAD8D197902C800E76DC9 /* RMCrashReporter.framework */,
+				419AAE191979060500E76DC9 /* RMCrashLogReporter.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -297,6 +311,46 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		419AADEE1979059900E76DC9 /* RMCrashLogReporter */ = {
+			isa = PBXGroup;
+			children = (
+				419AADF51979059900E76DC9 /* RMCrashLogReporter.h */,
+				419AADF61979059900E76DC9 /* RMCrashLogReporter.m */,
+				419AADEF1979059900E76DC9 /* Supporting Files */,
+			);
+			path = RMCrashLogReporter;
+			sourceTree = "<group>";
+		};
+		419AADEF1979059900E76DC9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				419AADF01979059900E76DC9 /* RMCrashLogReporter-Info.plist */,
+				419AADF11979059900E76DC9 /* InfoPlist.strings */,
+				419AADF41979059900E76DC9 /* RMCrashLogReporter-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		419AAE1B1979060600E76DC9 /* RMCrashLogReporter */ = {
+			isa = PBXGroup;
+			children = (
+				419AAE221979060600E76DC9 /* RMCrashLogReporter.h */,
+				419AAE231979060600E76DC9 /* RMCrashLogReporter.m */,
+				419AAE1C1979060600E76DC9 /* Supporting Files */,
+			);
+			path = RMCrashLogReporter;
+			sourceTree = "<group>";
+		};
+		419AAE1C1979060600E76DC9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				419AAE1D1979060600E76DC9 /* RMCrashLogReporter-Info.plist */,
+				419AAE1E1979060600E76DC9 /* InfoPlist.strings */,
+				419AAE211979060600E76DC9 /* RMCrashLogReporter-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		BD490DB91976F07700871300 /* Folder Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,22 +365,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		419AAD89197902C800E76DC9 /* Headers */ = {
+		419AAE151979060500E76DC9 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				419AADB21979035A00E76DC9 /* RMCrashLogReporter.h in Headers */,
-				419AADB31979035A00E76DC9 /* RMCrashLogMacro.h in Headers */,
-				419AADB41979035A00E76DC9 /* RMCrashReportFomatter.h in Headers */,
-				419AADB51979035A00E76DC9 /* RMCrashNetwork.h in Headers */,
-				419AADB61979035A00E76DC9 /* RMAlertView.h in Headers */,
-				419AADB71979035A00E76DC9 /* RMReachability.h in Headers */,
-				419AADB81979035A00E76DC9 /* RMSystemInfo.h in Headers */,
-				419AADB91979035A00E76DC9 /* RMSystemInfoNonAsyncSafe.h in Headers */,
-				419AADBA1979035A00E76DC9 /* RMFileWriter.h in Headers */,
-				419AADBB1979035A00E76DC9 /* RMThreadName.h in Headers */,
-				419AADBC1979035A00E76DC9 /* RMFolder.h in Headers */,
-				419AADBD1979035A00E76DC9 /* RMCrashlogFolder.h in Headers */,
+				419AAE331979062200E76DC9 /* RMCrashLogReporter.h in Headers */,
+				419AAE341979062200E76DC9 /* RMCrashLogMacro.h in Headers */,
+				419AAE351979062200E76DC9 /* RMCrashReportFomatter.h in Headers */,
+				419AAE361979062200E76DC9 /* RMCrashNetwork.h in Headers */,
+				419AAE381979062200E76DC9 /* RMReachability.h in Headers */,
+				419AAE391979062200E76DC9 /* RMSystemInfo.h in Headers */,
+				419AAE3A1979062200E76DC9 /* RMSystemInfoNonAsyncSafe.h in Headers */,
+				419AAE3B1979062200E76DC9 /* RMFileWriter.h in Headers */,
+				419AAE3C1979062200E76DC9 /* RMThreadName.h in Headers */,
+				419AAE3D1979062200E76DC9 /* RMFolder.h in Headers */,
+				419AAE3E1979062200E76DC9 /* RMCrashlogFolder.h in Headers */,
+				419AAE371979062200E76DC9 /* RMAlertView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,23 +422,23 @@
 			productReference = 4101120A1962B55000595DBF /* MyPaperTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		419AAD8C197902C800E76DC9 /* RMCrashReporter */ = {
+		419AAE181979060500E76DC9 /* RMCrashLogReporter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 419AAD9B197902C800E76DC9 /* Build configuration list for PBXNativeTarget "RMCrashReporter" */;
+			buildConfigurationList = 419AAE251979060600E76DC9 /* Build configuration list for PBXNativeTarget "RMCrashLogReporter" */;
 			buildPhases = (
-				419AAD87197902C800E76DC9 /* Sources */,
-				419AAD88197902C800E76DC9 /* Frameworks */,
-				419AAD89197902C800E76DC9 /* Headers */,
-				419AAD8A197902C800E76DC9 /* Resources */,
-				419AAD8B197902C800E76DC9 /* ShellScript */,
+				419AAE131979060500E76DC9 /* Sources */,
+				419AAE141979060500E76DC9 /* Frameworks */,
+				419AAE151979060500E76DC9 /* Headers */,
+				419AAE161979060500E76DC9 /* Resources */,
+				419AAE171979060500E76DC9 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = RMCrashReporter;
-			productName = RMCrashReporter;
-			productReference = 419AAD8D197902C800E76DC9 /* RMCrashReporter.framework */;
+			name = RMCrashLogReporter;
+			productName = RMCrashLogReporter;
+			productReference = 419AAE191979060500E76DC9 /* RMCrashLogReporter.framework */;
 			productType = "com.apple.product-type.framework.static";
 		};
 /* End PBXNativeTarget section */
@@ -417,7 +471,7 @@
 			targets = (
 				410111E81962B55000595DBF /* MyPaper */,
 				410112091962B55000595DBF /* MyPaperTests */,
-				419AAD8C197902C800E76DC9 /* RMCrashReporter */,
+				419AAE181979060500E76DC9 /* RMCrashLogReporter */,
 			);
 		};
 /* End PBXProject section */
@@ -441,18 +495,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		419AAD8A197902C800E76DC9 /* Resources */ = {
+		419AAE161979060500E76DC9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				419AAD94197902C800E76DC9 /* InfoPlist.strings in Resources */,
+				419AAE201979060600E76DC9 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		419AAD8B197902C800E76DC9 /* ShellScript */ = {
+		419AAE171979060500E76DC9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -498,21 +552,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		419AAD87197902C800E76DC9 /* Sources */ = {
+		419AAE131979060500E76DC9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				419AADA71979034600E76DC9 /* RMCrashLogReporter.m in Sources */,
-				419AADA81979034600E76DC9 /* RMCrashReportFomatter.m in Sources */,
-				419AADA91979034600E76DC9 /* RMCrashNetwork.m in Sources */,
-				419AADAA1979034600E76DC9 /* RMAlertView.m in Sources */,
-				419AADAB1979034600E76DC9 /* RMReachability.m in Sources */,
-				419AADAC1979034600E76DC9 /* RMSystemInfo.c in Sources */,
-				419AADAD1979034600E76DC9 /* RMSystemInfoNonAsyncSafe.m in Sources */,
-				419AADAE1979034600E76DC9 /* RMFileWriter.c in Sources */,
-				419AADAF1979034600E76DC9 /* RMThreadName.c in Sources */,
-				419AADB01979034600E76DC9 /* RMFolder.m in Sources */,
-				419AADB11979034600E76DC9 /* RMCrashlogFolder.m in Sources */,
+				419AAE281979060B00E76DC9 /* RMCrashLogReporter.m in Sources */,
+				419AAE291979060B00E76DC9 /* RMCrashReportFomatter.m in Sources */,
+				419AAE2A1979060B00E76DC9 /* RMCrashNetwork.m in Sources */,
+				419AAE2B1979060B00E76DC9 /* RMAlertView.m in Sources */,
+				419AAE2C1979060B00E76DC9 /* RMReachability.m in Sources */,
+				419AAE2D1979060B00E76DC9 /* RMSystemInfo.c in Sources */,
+				419AAE2E1979060B00E76DC9 /* RMSystemInfoNonAsyncSafe.m in Sources */,
+				419AAE2F1979060B00E76DC9 /* RMFileWriter.c in Sources */,
+				419AAE301979060B00E76DC9 /* RMThreadName.c in Sources */,
+				419AAE311979060B00E76DC9 /* RMFolder.m in Sources */,
+				419AAE321979060B00E76DC9 /* RMCrashlogFolder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,6 +609,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				419AAD93197902C800E76DC9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		419AADF11979059900E76DC9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				419AADF21979059900E76DC9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		419AAE1E1979060600E76DC9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				419AAE1F1979060600E76DC9 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -706,7 +776,7 @@
 			};
 			name = Release;
 		};
-		419AAD99197902C800E76DC9 /* Debug */ = {
+		419AAE261979060600E76DC9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = (
@@ -721,12 +791,12 @@
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RMCrashReporter/RMCrashReporter-Prefix.pch";
+				GCC_PREFIX_HEADER = "RMCrashLogReporter/RMCrashLogReporter-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "RMCrashReporter/RMCrashReporter-Info.plist";
+				INFOPLIST_FILE = "RMCrashLogReporter/RMCrashLogReporter-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -734,7 +804,7 @@
 			};
 			name = Debug;
 		};
-		419AAD9A197902C800E76DC9 /* Release */ = {
+		419AAE271979060600E76DC9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = (
@@ -749,8 +819,8 @@
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RMCrashReporter/RMCrashReporter-Prefix.pch";
-				INFOPLIST_FILE = "RMCrashReporter/RMCrashReporter-Info.plist";
+				GCC_PREFIX_HEADER = "RMCrashLogReporter/RMCrashLogReporter-Prefix.pch";
+				INFOPLIST_FILE = "RMCrashLogReporter/RMCrashLogReporter-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -788,13 +858,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		419AAD9B197902C800E76DC9 /* Build configuration list for PBXNativeTarget "RMCrashReporter" */ = {
+		419AAE251979060600E76DC9 /* Build configuration list for PBXNativeTarget "RMCrashLogReporter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				419AAD99197902C800E76DC9 /* Debug */,
-				419AAD9A197902C800E76DC9 /* Release */,
+				419AAE261979060600E76DC9 /* Debug */,
+				419AAE271979060600E76DC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

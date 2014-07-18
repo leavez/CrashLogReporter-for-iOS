@@ -9,7 +9,7 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>RMCrashReporter.xcscheme</key>
+		<key>RMCrashLogReporter.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
@@ -28,6 +28,21 @@
 			<true/>
 		</dict>
 		<key>419AAD8C197902C800E76DC9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>419AADC11979052300E76DC9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>419AADEB1979059900E76DC9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>419AAE181979060500E76DC9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
