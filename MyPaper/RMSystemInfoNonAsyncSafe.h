@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 renren. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 
 #ifndef RenrenMonitor_RMSystemInfo_NonAsyncSafe_h
 #define RenrenMonitor_RMSystemInfo_NonAsyncSafe_h

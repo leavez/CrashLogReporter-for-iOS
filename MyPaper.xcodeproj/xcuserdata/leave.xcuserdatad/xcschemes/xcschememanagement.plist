@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>RMCrashReporter.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -18,6 +23,11 @@
 			<true/>
 		</dict>
 		<key>410112091962B55000595DBF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>419AAD8C197902C800E76DC9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

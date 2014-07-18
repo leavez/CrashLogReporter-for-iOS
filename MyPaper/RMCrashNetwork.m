@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 leave. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "RMCrashNetwork.h"
 #import "RMCrashLogMacro.h"
 #import "RMCrashReportFomatter.h"
