@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/leavez/MyPaper.git", :tag => "v1.0" }
 
   s.source_files = "MyPaper/lib"
-  s.public_header_files = "/MyPaper/lib/RMCrashLogReporter.h","MyPaper/lib/RMCrashLogMacro.h"
+  s.public_header_files = "MyPaper/lib"
   s.exclude_files = "MyPaper/lib/RMThreadName.{h,c}"
   s.requires_arc = true
 
