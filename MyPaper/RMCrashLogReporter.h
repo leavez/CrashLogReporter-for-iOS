@@ -74,14 +74,23 @@
  */
 
 // if YES， 只有在wifi的情况下，才会提示是否发送log。自动发送上次发送失败的log也要等待wifi情况。
-// if NO, 会把文件存在另一文件夹里，等待有新crash的时候一起发送。default value NO
+// if NO, 会把文件存在另一文件夹里，等待有新crash的时候一起发送。default value YES
 @property (nonatomic, assign) BOOL onlySendInWifi;
 
 // 在用户在提示发送时选择cancel，是否删除crash文件，如果NO，会吧crash存在另一个文件夹里
 // 等待在另一个新的crash产生时一起发送
 // default value is NO
 @property (nonatomic, assign) BOOL shouldDeleteCrashWhenPressCancel;
+
+// 不提示用户直接发送log
+// default value is NO
 @property (nonatomic, assign) BOOL shouldAutoSubmitCrashReport;
+
+// 检测注册的crash handler是否被其他函数更改
+// 为了防止其他组件（如友盟统计分析自带log上传功能）覆盖本组件的signal的处理函数，
+// 会在组件启动10s后检测是否被覆盖。如果被更改，NSAssert不会通过。只做提示功能，
+// 如果被覆盖，请调整检查其他组件，或适当调整启动延时。Default is YES
+// NOTICE: 在连接调试器的时候会此功能会被禁止。
 @property (nonatomic, assign) BOOL shouldCheckCrashHandlerNotModifiedByOthers; // only work in debug mode
 
 @end
